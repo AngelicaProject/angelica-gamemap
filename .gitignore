@@ -1,0 +1,12 @@
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local state
+*.local
+*.log
+
+# Game executables are never committed
+*.exe
