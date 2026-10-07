@@ -1,0 +1,23 @@
+[function."text.utf8_string.to_upper"]
+locator = { signature = "40 53 57 41 54 41 55 41 57 48 83 EC 20 45 0F B6 E9 44 0F B6 E2 48 8B F9 41 B2 01" }
+abi = { args = ["ptr", "u8", "u8", "u8", "ptr"], ret = "ptr" }
+thread = "any"
+doc = "Converts a string to upper case: its first letter, the first letter of every word, or all of it, skipping listed words."
+
+[function."text.utf8_string.to_lower"]
+locator = { signature = "45 33 C0 4C 8B C9 4C 39 41 10 0F 86 ?? ?? ?? ?? 45 8D 50 06" }
+abi = { args = ["ptr"], ret = "ptr" }
+thread = "any"
+doc = "Converts a string to lower case."
+
+[field."text.utf8_string.string_ptr"]
+of = "text.utf8_string"
+type = "ptr"
+offset = 0x0
+doc = "The string's bytes."
+
+[field."text.utf8_string.used_size"]
+of = "text.utf8_string"
+type = "i64"
+locator = { in = "text.utf8_string.to_lower", signature = "4C 39 41 10", operand = "disp" }
+doc = "The number of bytes in use, including the terminating NUL."

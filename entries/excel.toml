@@ -1,0 +1,18 @@
+[function."excel.hash_table_page_row_resolver.store_row"]
+locator = { signature = "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 44 8B 49 18 33 C0 49 8B F0 48 8B FA 45 85 C9" }
+abi = { args = ["ptr", "ptr", "ptr"], ret = "u8" }
+thread = "any"
+checks = [{ vtable_slot = 3, code_slots = 8 }]
+doc = "Stores a parsed Excel row in a page whose rows are kept in a hash table."
+
+[function."excel.ring_buffer_page_row_resolver.store_row"]
+locator = { signature = "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 83 EC 20 48 8B 59 20 48 8D 41 28" }
+abi = { args = ["ptr", "ptr", "ptr"], ret = "u8" }
+thread = "any"
+checks = [{ vtable_slot = 3, code_slots = 8 }]
+doc = "Stores a parsed Excel row in a page whose rows are kept in a ring buffer."
+
+[global."excel.exd_environment.instance"]
+locator = { signature = "48 8B 0D ?? ?? ?? ?? 45 33 C0 48 8B D7 48 8B 01 FF 50 08", at = 3, follow = "rel32" }
+type = "ptr"
+doc = "The environment that allocates and frees Excel row buffers."

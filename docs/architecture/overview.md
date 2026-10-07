@@ -17,7 +17,7 @@ map.toml ────────┘                                            
 
 ## The `angelica` tool version
 
-The tool version used to verify the map is pinned in this repository. A build record names the map commit it was produced from. Changing the pinned version regenerates every build record that is still published.
+`tool.toml` pins the `angelica` commit whose `angelica map verify` produces the build records. A build record names the map it was produced from by its `entries_sha256`. Changing the pinned commit regenerates every build record that is still published.
 
 ## Publication
 
