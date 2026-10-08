@@ -16,3 +16,149 @@ doc = "Stores a parsed Excel row in a page whose rows are kept in a ring buffer.
 locator = { signature = "48 8B 0D ?? ?? ?? ?? 45 33 C0 48 8B D7 48 8B 01 FF 50 08", at = 3, follow = "rel32" }
 type = "ptr"
 doc = "The environment that allocates and frees Excel row buffers."
+
+[field."excel.exd_environment.allocate"]
+of = "excel.exd_environment_vtable"
+type = "ptr"
+locator = { in = "excel.row.parse_v3", signature = "FF 50 08", operand = "disp" }
+doc = "The vtable slot of the function that allocates a row buffer: (environment, size, 0) returns the buffer."
+
+[field."excel.exd_environment.free"]
+of = "excel.exd_environment_vtable"
+type = "ptr"
+offset = 0x10
+doc = "The vtable slot of the function that frees a row buffer: (environment, buffer). The game's row clear calls it outside its function's first unwind range, so the offset is a constant."
+
+[function."excel.row.construct"]
+locator = { signature = "40 53 48 83 EC ?? 48 C7 01 01 00 00 00 48 8B D9 4C 89 49 ?? 66 41 83 B9 ?? ?? ?? ?? 02" }
+abi = { args = ["ptr", "ptr", "u32", "ptr", "ptr", "u32"], ret = "ptr" }
+thread = "any"
+doc = "Constructs a row from parsed page data and its owning sheet."
+
+[function."excel.row.parse_v3"]
+locator = { signature = "40 53 56 57 41 54 41 55 41 56 41 57 48 83 EC ?? 41 8B D8 45 8B E1 48 03 DB 4C 8B F1 4C 8D 3C 13" }
+abi = { args = ["ptr", "ptr", "u32", "i32", "u32"], ret = "void" }
+thread = "any"
+doc = "Builds the owned row buffer of a version-three sheet."
+
+[function."excel.sheet.column_offset"]
+locator = { signature = "4C 8B 41 ?? 48 63 C2 48 8D 0C 40 41 0F B7 44 48 02 48 8D 0C 40 41 0F B7 44 48 04 C3" }
+abi = { args = ["ptr", "i32"], ret = "u16" }
+thread = "any"
+doc = "Returns the fixed-data offset of a logical column."
+
+[function."excel.sheet.name"]
+locator = { signature = "48 8D 41 ?? C3 CC CC CC CC CC CC CC CC CC CC CC 4C 8B 41 ?? 48 63 C2" }
+abi = { args = ["ptr"], ret = "ptr" }
+thread = "any"
+doc = "Returns the sheet-name string descriptor."
+
+[function."excel.sheet.construct"]
+locator = { signature = "48 89 5C 24 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 8B B4 24 ?? ?? ?? ??" }
+abi = { args = ["ptr", "i32", "ptr", "ptr", "ptr", "i32", "u8"], ret = "ptr" }
+thread = "any"
+doc = "Constructs a sheet and its column layout from an Excel header."
+
+[function."excel.page.parse_all_rows"]
+locator = { signature = "48 89 5C 24 18 55 56 57 41 54 41 55 41 56 41 57 48 83 EC ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 44 24 ?? 48 8B 02 4C 8B E9 48 8B CA" }
+abi = { args = ["ptr", "ptr"], ret = "void" }
+thread = "any"
+doc = "Parses all page rows and hands them to the sheet's row resolver."
+
+[field."excel.row.data"]
+of = "excel.row"
+type = "ptr"
+locator = { in = "excel.row.construct", signature = "48 C7 01 01 00 00 00", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The owned row buffer, or the empty-row tag."
+
+[field."excel.row.sheet"]
+of = "excel.row"
+type = "ptr"
+locator = { in = "excel.row.construct", signature = "4C 89 49 ??", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The row's owning sheet."
+
+[field."excel.sheet.version"]
+of = "excel.sheet"
+type = "u16"
+locator = { in = "excel.row.construct", signature = "66 41 83 B9 ?? ?? ?? ?? 02", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The sheet's row-format version."
+
+[field."excel.sheet.column_count"]
+of = "excel.sheet"
+type = "u16"
+locator = { in = "excel.row.parse_v3", signature = "41 0F B7 81 ?? ?? ?? ??", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The number of column definitions."
+
+[field."excel.sheet.column_definitions"]
+of = "excel.sheet"
+type = "ptr"
+locator = { in = "excel.sheet.column_offset", signature = "4C 8B 41 ??", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The contiguous column-definition records."
+
+[field."excel.sheet.data_offset"]
+of = "excel.sheet"
+type = "u32"
+locator = { in = "excel.page.parse_all_rows", signature = "8B 40 ?? 44 8D 3C 70", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The fixed-data size before row strings."
+
+[field."excel.sheet.variant"]
+of = "excel.sheet"
+type = "u32"
+locator = { in = "excel.page.parse_all_rows", signature = "8B B0 ?? ?? ?? ?? 8B 40 ?? 44 8D 3C 70", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The single-row or subrow variant."
+
+[field."excel.sheet.language"]
+of = "excel.sheet"
+type = "u32"
+locator = { in = "excel.sheet.construct", signature = "89 51 ?? 4C 89 68 08", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The language of this loaded sheet."
+
+[field."excel.sheet.name_ptr"]
+of = "excel.sheet"
+type = "ptr"
+locator = { in = "excel.sheet.name", signature = "48 8D 41 ??", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The sheet-name descriptor's first string pointer."
+
+[field."excel.column_definition.kind"]
+of = "excel.column_definition"
+type = "u16"
+locator = { in = "excel.row.parse_v3", signature = "66 41 39 31", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The native column type code."
+
+[field."excel.column_definition.offset"]
+of = "excel.column_definition"
+type = "u16"
+locator = { in = "excel.sheet.column_offset", signature = "41 0F B7 44 48 04", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The column's byte offset in fixed row data."
+
+[field."excel.row_descriptor.row_id"]
+of = "excel.row_descriptor"
+type = "u32"
+locator = { in = "excel.ring_buffer_page_row_resolver.store_row", signature = "8B 0F 39 4B 18", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The row's primary key."
+
+[field."excel.row_descriptor.subrow_count"]
+of = "excel.row_descriptor"
+type = "u16"
+locator = { in = "excel.ring_buffer_page_row_resolver.store_row", signature = "66 44 39 7F 06", operand = "disp" }
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The number of subrow keys carried by this descriptor."
+
+[field."excel.row_descriptor.subrow_ids"]
+of = "excel.row_descriptor"
+type = "u16"
+offset = 0x8
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The first subrow key; the descriptor contains at most four."

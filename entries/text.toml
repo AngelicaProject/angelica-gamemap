@@ -21,3 +21,15 @@ of = "text.utf8_string"
 type = "i64"
 locator = { in = "text.utf8_string.to_lower", signature = "4C 39 41 10", operand = "disp" }
 doc = "The number of bytes in use, including the terminating NUL."
+
+[field."text.case_exclusion.word"]
+of = "text.case_exclusion"
+type = "ptr"
+offset = 0x0
+doc = "The bytes of a word that Utf8String::ToUpper leaves unchanged when it capitalizes every word."
+
+[field."text.case_exclusion.length"]
+of = "text.case_exclusion"
+type = "i32"
+offset = 0x8
+doc = "The word's length in bytes; zero ends the list."
