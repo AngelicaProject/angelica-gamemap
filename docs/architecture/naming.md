@@ -21,6 +21,10 @@ An area groups entries about one part of the game and is the name of its file in
 - A field is `<area>.<type>.<field>`: `ui.unit_base.name`.
 - A patch is named for what it changes, not for its bytes: `ui.chat_log.skip_length_check`.
 
+## State tables
+
+A state table is named for its domain, `self`, or for a subject of the domain, `self.zone`. Its fields are named for what they hold, as columns are: `class_job`, `max_health`, `position_x`. Field names are stable as column names are.
+
 ## Sheet columns
 
 A column of a sheet schema is named for what it holds, in lowercase words joined by underscores: `name`, `singular`, `description`, `level_item`. A repeated group of columns is numbered from 0 at the end: `base_param_0`, `base_param_1`. A column that refers to rows of another sheet is named for that sheet's subject: `item_ui_category`. A name is stable: renaming a column used by published plugins keeps the old name in the schema for at least one major version of the plugin API.

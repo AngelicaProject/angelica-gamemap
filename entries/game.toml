@@ -1,0 +1,12 @@
+[global."game.game_main"]
+locator = { signature = "48 8D 0D ?? ?? ?? ?? 0F 28 F2 48 89 44 24 ??", at = 3, follow = "rel32" }
+type = "struct"
+doc = "The game's main state: zones and transitions between them."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."game.game_main.current_territory_type"]
+of = "game.game_main"
+type = "u32"
+offset = 0x4108
+doc = "The zone the player is in: a row of the TerritoryType sheet; zero during loading screens."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

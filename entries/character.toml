@@ -1,0 +1,54 @@
+[global."character.local_player"]
+locator = { signature = "48 8B 2D ?? ?? ?? ?? 75", at = 3, follow = "rel32" }
+type = "ptr"
+doc = "The player's character; zero before the player logs in."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.character.data"]
+of = "character.character"
+type = "struct"
+offset = 0x1A0
+doc = "The character's data: class, level, HP, and MP."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.character_data.health"]
+of = "character.character_data"
+type = "u32"
+offset = 0x0C
+doc = "Current HP."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.character_data.max_health"]
+of = "character.character_data"
+type = "u32"
+offset = 0x10
+doc = "Maximum HP."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.character_data.mana"]
+of = "character.character_data"
+type = "u32"
+offset = 0x14
+doc = "Current MP."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.character_data.max_mana"]
+of = "character.character_data"
+type = "u32"
+offset = 0x18
+doc = "Maximum MP."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.character_data.class_job"]
+of = "character.character_data"
+type = "u8"
+offset = 0x2A
+doc = "The current class or job: a row of the ClassJob sheet."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.character_data.level"]
+of = "character.character_data"
+type = "u8"
+offset = 0x2B
+doc = "The level of the current class or job."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

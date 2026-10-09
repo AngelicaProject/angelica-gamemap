@@ -1,0 +1,27 @@
+[field."object.game_object.name"]
+of = "object.game_object"
+type = "struct"
+offset = 0x30
+doc = "The object's name: NUL-terminated UTF-8 of at most 64 bytes."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."object.game_object.position_x"]
+of = "object.game_object"
+type = "f32"
+offset = 0xB0
+doc = "The object's position in the zone: east-west, in yalms."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."object.game_object.position_y"]
+of = "object.game_object"
+type = "f32"
+offset = 0xB4
+doc = "The object's position in the zone: height, in yalms."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."object.game_object.position_z"]
+of = "object.game_object"
+type = "f32"
+offset = 0xB8
+doc = "The object's position in the zone: north-south, in yalms."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

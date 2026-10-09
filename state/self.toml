@@ -1,0 +1,52 @@
+[tables.self]
+doc = "The player's character, while the player is logged in."
+object = ["character.local_player"]
+
+[tables.self.fields.name]
+doc = "The character's name."
+path = ["object.game_object.name"]
+text = 64
+
+[tables.self.fields.class_job]
+doc = "The current class or job: a row of the ClassJob sheet."
+path = ["character.character.data", "character.character_data.class_job"]
+
+[tables.self.fields.level]
+doc = "The level of the current class or job."
+path = ["character.character.data", "character.character_data.level"]
+
+[tables.self.fields.health]
+doc = "Current HP."
+path = ["character.character.data", "character.character_data.health"]
+
+[tables.self.fields.max_health]
+doc = "Maximum HP."
+path = ["character.character.data", "character.character_data.max_health"]
+
+[tables.self.fields.mana]
+doc = "Current MP."
+path = ["character.character.data", "character.character_data.mana"]
+
+[tables.self.fields.max_mana]
+doc = "Maximum MP."
+path = ["character.character.data", "character.character_data.max_mana"]
+
+[tables.self.fields.position_x]
+doc = "East-west position in the zone, in yalms."
+path = ["object.game_object.position_x"]
+
+[tables.self.fields.position_y]
+doc = "Height in the zone, in yalms."
+path = ["object.game_object.position_y"]
+
+[tables.self.fields.position_z]
+doc = "North-south position in the zone, in yalms."
+path = ["object.game_object.position_z"]
+
+[tables."self.zone"]
+doc = "Where the player is."
+object = ["game.game_main"]
+
+[tables."self.zone".fields.territory_type]
+doc = "The zone: a row of the TerritoryType sheet; zero during loading screens."
+path = ["game.game_main.current_territory_type"]
