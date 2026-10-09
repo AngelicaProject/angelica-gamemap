@@ -39,12 +39,17 @@ offset = 0x18
 doc = "Maximum MP."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 
+[function."character.character_data.get_class_job"]
+locator = { signature = "40 53 48 83 EC 20 48 8B D9 0F B7 49 24 85 C9 74 ?? E8 ?? ?? ?? ?? 48 85 C0 74 ?? 80 78 30 00 74 ?? 33 C0" }
+abi = { args = ["ptr"], ret = "u8" }
+thread = "main"
+doc = "The class or job of character data, or 0 while a transformation that replaces it is active."
+
 [field."character.character_data.class_job"]
 of = "character.character_data"
 type = "u8"
-offset = 0x2A
+locator = { in = "character.character_data.get_class_job", signature = "0F B6 43 ??", operand = "disp" }
 doc = "The current class or job: a row of the ClassJob sheet."
-origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 
 [field."character.character_data.level"]
 of = "character.character_data"

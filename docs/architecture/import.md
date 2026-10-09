@@ -19,6 +19,6 @@ An entry may start from data maintained outside this repository: a community des
 - Entries are imported on demand, for a name a plugin or a service needs. The repository does not hold a bulk copy of any source.
 - An imported entry records `origin = { source = "<source>", commit = "<commit>" }`.
 - The thread of an imported function is `main` unless verified otherwise. The host refuses a hooked call from another thread, so a wrong declaration fails visibly instead of corrupting state.
-- A constant offset is replaced by a code-anchored locator when one is found.
+- A constant offset is replaced by a code-anchored locator when one is found: a function whose behaviour is understood well enough to document reads the field, and `angelica exe signature --within` gives the instruction's signature inside it.
 - Imported names are converted to this repository's [naming](./naming.md).
 - A source's license notice is added to `THIRD_PARTY_NOTICES.md` with the first entry imported from it, as its license requires.
