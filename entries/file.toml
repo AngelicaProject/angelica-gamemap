@@ -1,0 +1,40 @@
+[function."file.file_thread.do_job"]
+locator = { signature = "40 56 41 56 48 83 EC ?? 0F BE 02 4C 8B F2 48 8B F1 3C 09 0F 8C" }
+abi = { args = ["ptr", "ptr", "i32", "u8"], ret = "u8" }
+thread = "any"
+doc = "Runs one file job of a file thread by the descriptor's mode: modes below 9 read a file on disk named by the descriptor's path, 11 reads the resource's file from an archive."
+
+[field."file.descriptor.mode"]
+of = "file.descriptor"
+type = "u8"
+offset = 0x0
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "What the job does: 0 reads a file on disk into a resource, 11 reads a file from an archive into a resource."
+
+[field."file.descriptor.file_interface"]
+of = "file.descriptor"
+type = "ptr"
+offset = 0x30
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The file a disk job opens and reads."
+
+[field."file.descriptor.resource_handle"]
+of = "file.descriptor"
+type = "ptr"
+offset = 0x50
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The resource a job loads."
+
+[field."file.descriptor.path"]
+of = "file.descriptor"
+type = "u16"
+offset = 0x70
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The first of 260 UTF-16 units of the NUL-terminated path a disk job reads."
+
+[field."file.resource_handle.file_name"]
+of = "file.resource_handle"
+type = "ptr"
+offset = 0x48
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The resource's game path, a std::string: 16 bytes of inline text or a pointer, then its length and capacity."
