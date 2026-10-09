@@ -1,0 +1,34 @@
+[field."status.status_manager.statuses"]
+of = "status.status_manager"
+type = "struct"
+offset = 0x8
+doc = "The status slots: 60 statuses of 16 bytes; an empty slot has status 0."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."status.status.status_id"]
+of = "status.status"
+type = "u16"
+offset = 0x0
+doc = "The status: a row of the Status sheet; 0 in an empty slot."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."status.status.param"]
+of = "status.status"
+type = "u16"
+offset = 0x2
+doc = "A value that depends on the status: the stack count of a debuff, or the ItemFood row of food and potions."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."status.status.remaining_time"]
+of = "status.status"
+type = "f32"
+offset = 0x4
+doc = "Seconds the status lasts; zero or less for a status without a time limit."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."status.status.source_id"]
+of = "status.status"
+type = "u32"
+offset = 0x8
+doc = "The entity id of the object that applied the status."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

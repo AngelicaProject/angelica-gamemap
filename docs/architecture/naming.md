@@ -23,7 +23,7 @@ An area groups entries about one part of the game and is the name of its file in
 
 ## State tables
 
-A state table is named for its domain, `self`, or for a subject of the domain, `self.zone`. Its fields are named for what they hold, as columns are: `class_job`, `max_health`, `position_x`. Field names are stable as column names are.
+A state table is named for its domain, `self`, or for a subject of the domain, `self.zone`; a list table for its elements, in the plural, `self.statuses`. Its fields are named for what they hold, as columns are: `class_job`, `max_health`, `position_x`. Field names are stable as column names are.
 
 ## Sheet columns
 

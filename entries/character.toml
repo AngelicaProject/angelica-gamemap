@@ -57,3 +57,10 @@ type = "u8"
 offset = 0x2B
 doc = "The level of the current class or job."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."character.battle_chara.status_manager"]
+of = "character.battle_chara"
+type = "struct"
+offset = 0x23B0
+doc = "The statuses on a battle character."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
