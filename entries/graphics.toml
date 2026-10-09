@@ -1,0 +1,10 @@
+[global."graphics.config.instance"]
+locator = { signature = "48 8B 05 ?? ?? ?? ?? 48 8B CB 0F B6 50 ?? 48 8B 03 80 FA FF", at = 3, follow = "rel32" }
+type = "ptr"
+doc = "The graphics settings."
+
+[field."graphics.config.texture_detail"]
+of = "graphics.config"
+type = "u8"
+locator = { in = "file.texture_handle.load", signature = "0F B6 50 ?? 48 8B 03 80 FA FF", operand = "disp" }
+doc = "The detail level a texture that follows the graphics settings loads at; 0xFF loads it at level 2."

@@ -11,6 +11,20 @@ offset = 0x0
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "What the job does: 0 reads a file on disk into a resource, 11 reads a file from an archive into a resource."
 
+[field."file.descriptor.length"]
+of = "file.descriptor"
+type = "u64"
+offset = 0x10
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "How many bytes a disk job reads from the start offset; zero reads the rest of the file."
+
+[field."file.descriptor.start_offset"]
+of = "file.descriptor"
+type = "u64"
+offset = 0x18
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "Where in the file a disk job starts reading."
+
 [field."file.descriptor.file_interface"]
 of = "file.descriptor"
 type = "ptr"
@@ -38,3 +52,29 @@ type = "ptr"
 offset = 0x48
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "The resource's game path, a std::string: 16 bytes of inline text or a pointer, then its length and capacity."
+
+[function."file.texture_handle.load"]
+locator = { signature = "40 53 55 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B D9 45 33 FF 48 8B 89 ?? ?? ?? ?? 45 0F B6 E0 4C 8B F2" }
+abi = { args = ["ptr", "ptr", "u8"], ret = "u8" }
+thread = "any"
+checks = [{ vtable_slot = 32, code_slots = 33 }]
+doc = "Loads a texture resource from a finished file job. A disk job's texture is taken from the game's protected file list, and the load fails with 0xF1 when the file is not on it, before the handle's category flags are set."
+
+[function."file.texture_handle.load_unpacked"]
+locator = { signature = "48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 49 8B E8 44 88 4C 24 ?? 41 0F B6 F1 44 8B F2 45 33 C9" }
+abi = { args = ["ptr", "i32", "ptr", "u8"], ret = "u8" }
+thread = "any"
+doc = "Loads a texture resource from a plain .tex file the job opened, at a detail level: its header, then the texture. Takes the handle, the detail level, the descriptor, and the load's reset flag; returns the load's result like the texture load."
+
+[field."file.texture_handle.flags"]
+of = "file.texture_handle"
+type = "u8"
+locator = { in = "file.texture_handle.load", signature = "40 84 AB ?? ?? ?? ?? 74 ?? 48 8B 05", operand = "disp" }
+doc = "Bit 0: the texture loads at the detail level of the graphics settings. Bit 1: the resource's category is 1 or 2. Bits 2, 3, 4: the letter before the extension of the game path is d, n, or s."
+
+[field."file.resource_handle.category"]
+of = "file.resource_handle"
+type = "u16"
+offset = 0x8
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+doc = "The resource's category, the archive group its file belongs to."
