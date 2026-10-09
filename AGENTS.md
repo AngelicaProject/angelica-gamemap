@@ -28,6 +28,7 @@ Then load the documentation for the task:
 
 - An entry is added because a plugin or host service needs it, never speculatively.
 - Every change to `entries/` is accompanied by build records regenerated with `angelica map verify` against the current game executable. Never edit `builds/` by hand.
+- A column is named in `sheets/` when a plugin needs it, from the values `angelica excel show` lists, and `angelica map verify` reports its sheet as known.
 - Never guess an address, offset, or signature. An entry that cannot be verified stays absent.
 - Prefer locators anchored in code over constant offsets.
 - Imported data keeps its `origin`, and its license notice stays in `THIRD_PARTY_NOTICES.md`.

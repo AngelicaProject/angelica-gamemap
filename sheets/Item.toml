@@ -1,0 +1,22 @@
+sheet = "Item"
+doc = "Every item: its names and description."
+
+[columns.singular]
+type = "text"
+doc = "The name in the singular, lower-case where the language allows, as text uses it inside sentences."
+
+[columns.plural]
+type = "text"
+doc = "The name in the plural, as text uses it inside sentences."
+
+[columns.description]
+type = "text"
+doc = "The description shown in the item's tooltip."
+
+[columns.name]
+type = "text"
+doc = "The name as menus and tooltips show it."
+
+[[layouts]]
+fingerprint = "eaea5cde48d5801d"
+columns = { singular = 0, plural = 2, description = 8, name = 9 }

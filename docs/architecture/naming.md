@@ -21,4 +21,8 @@ An area groups entries about one part of the game and is the name of its file in
 - A field is `<area>.<type>.<field>`: `ui.unit_base.name`.
 - A patch is named for what it changes, not for its bytes: `ui.chat_log.skip_length_check`.
 
+## Sheet columns
+
+A column of a sheet schema is named for what it holds, in lowercase words joined by underscores: `name`, `singular`, `description`, `level_item`. A repeated group of columns is numbered from 0 at the end: `base_param_0`, `base_param_1`. A column that refers to rows of another sheet is named for that sheet's subject: `item_ui_category`. A name is stable: renaming a column used by published plugins keeps the old name in the schema for at least one major version of the plugin API.
+
 Names describe what the game does, in plain English words. Names from decompilers (`sub_142087C00`) and addresses are never used in names.
