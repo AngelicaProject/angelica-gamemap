@@ -1,0 +1,5 @@
+[function."shell.command_module.execute_command_inner"]
+locator = { signature = "40 53 56 57 48 83 EC ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 44 24 ?? 48 8B 02 49 8B F0 48 8B FA 48 8B D9 80 38 00" }
+abi = { args = ["ptr", "ptr", "ptr"], ret = "void" }
+thread = "main"
+doc = "Runs a line the player sent from the chat box or a macro: (command module, the line as a Utf8String, UI module). It looks the command up in the game's command list and runs it or reports an unknown command."

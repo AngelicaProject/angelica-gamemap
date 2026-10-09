@@ -33,3 +33,15 @@ of = "text.case_exclusion"
 type = "i32"
 offset = 0x8
 doc = "The word's length in bytes; zero ends the list."
+
+[function."text.utf8_string.from_sequence"]
+locator = { signature = "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 20 48 8D 41 ?? 66 C7 41 ?? 01 01 48 89 01 49 8B D8" }
+abi = { args = ["ptr", "ptr", "u64"], ret = "ptr" }
+thread = "any"
+doc = "Constructs a Utf8String in uninitialized memory from bytes and their length; it uses the first 0x62 bytes of the memory and allocates when the text does not fit its 64-byte inline buffer."
+
+[function."text.utf8_string.dtor"]
+locator = { signature = "80 79 ?? 00 75 ?? 48 8B 51 08 41 B8 ?? ?? ?? ?? 48 8B 09 E9" }
+abi = { args = ["ptr"], ret = "void" }
+thread = "any"
+doc = "Frees what a Utf8String allocated."

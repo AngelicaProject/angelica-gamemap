@@ -1,0 +1,10 @@
+[global."framework.instance"]
+locator = { signature = "48 83 EC 28 48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8B C8 48 85 C0 75 0A", at = 7, follow = "rel32" }
+type = "ptr"
+doc = "The game's framework, zero before it exists."
+
+[function."framework.get_ui_module"]
+locator = { signature = "48 83 EC 28 48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8B C8 48 85 C0 75 0A", at = 12, follow = "rel32" }
+abi = { args = ["ptr"], ret = "ptr" }
+thread = "main"
+doc = "The framework's UI module; zero for a zero framework or before the module exists."
