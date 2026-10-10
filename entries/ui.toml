@@ -75,3 +75,51 @@ type = "struct"
 offset = 0xD0
 doc = "The element's text, a Utf8String. Checked in the code: set_text takes this field's address first and stores the new text in it; and in the game: the texts read from it are the ones the windows show."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.unit_manager.unit_count"]
+of = "ui.unit_manager"
+type = "i16"
+locator = { in = "ui.unit_manager.get_unit_by_name", signature = "0F BF 99 ?? ?? ?? ??", operand = "disp" }
+doc = "How many windows the manager's list holds."
+
+[field."ui.unit_manager.units"]
+of = "ui.unit_manager"
+type = "struct"
+locator = { in = "ui.unit_manager.get_unit_by_name", signature = "4C 8B 94 C7 ?? ?? ?? ??", operand = "disp" }
+doc = "The manager's list of windows: pointers to them, at most 256."
+
+[field."ui.unit_base.name"]
+of = "ui.unit_base"
+type = "struct"
+locator = { in = "ui.unit_manager.get_unit_by_name", signature = "49 8D 42 ??", operand = "disp" }
+doc = "The window's name: NUL-terminated ASCII in 32 bytes."
+
+[field."ui.unit_base.widget"]
+of = "ui.unit_base"
+type = "ptr"
+locator = { in = "ui.unit_base.get_node_by_id", signature = "48 8B 41 ??", operand = "disp" }
+doc = "The window's own elements as its layout file lists them; zero before the window is built."
+
+[field."ui.widget_info.node_count"]
+of = "ui.widget_info"
+type = "u32"
+locator = { in = "ui.unit_base.get_node_by_id", signature = "44 8B 48 ??", operand = "disp" }
+doc = "How many elements the window has of its own."
+
+[field."ui.widget_info.nodes"]
+of = "ui.widget_info"
+type = "ptr"
+locator = { in = "ui.unit_base.get_node_by_id", signature = "4C 8B 58 ??", operand = "disp" }
+doc = "The window's own elements: pointers to them."
+
+[field."ui.res_node.id"]
+of = "ui.res_node"
+type = "u32"
+locator = { in = "ui.unit_base.get_node_by_id", signature = "44 39 52 ??", operand = "disp" }
+doc = "The element's id in its window's layout file."
+
+[field."ui.res_node.type"]
+of = "ui.res_node"
+type = "u16"
+locator = { in = "ui.unit_base.get_text_node_by_id", signature = "66 41 83 79 ?? 03", operand = "disp" }
+doc = "The element's type; 3 is an element that shows text."
