@@ -30,6 +30,7 @@ Then load the documentation for the task:
 - Every change to `entries/` is accompanied by build records regenerated with `angelica map verify` against the current game executable. Never edit `builds/` by hand.
 - A state table field is added when a plugin needs it, is never data that could compromise the account, and keeps its name and meaning across builds; its `doc` names the sheet a number refers to.
 - A column is named in `sheets/` when a plugin needs it, from the values `angelica excel show` lists, and `angelica map verify` reports its sheet as known.
+- An element is named in `windows/` when a plugin needs it, after it was seen in the game to be what its `doc` says, and `angelica map verify` reports its window as known.
 - Never guess an address, offset, or signature. An entry that cannot be verified stays absent.
 - Prefer locators anchored in code over constant offsets.
 - Imported data keeps its `origin`, and its license notice stays in `THIRD_PARTY_NOTICES.md`.

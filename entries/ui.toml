@@ -14,3 +14,64 @@ locator = { signature = "40 55 53 56 41 55 41 57 48 8D AC 24 ?? ?? ?? ?? 48 81 E
 abi = { args = ["ptr", "u16", "ptr", "ptr", "i32", "u8"], ret = "u32" }
 thread = "main"
 doc = "Adds a message to the chat log: (log module, log kind in the low 7 bits, sender, message, timestamp or 0 for now, silent). The sender and message are Utf8Strings of the game's text; the log copies them."
+
+[global."ui.stage"]
+locator = { signature = "48 8B 05 ?? ?? ?? ?? 4C 8B 40 18 45 8B 40 18", at = 3, follow = "rel32" }
+type = "ptr"
+doc = "The stage that owns the game's windows; zero before it exists."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.stage.unit_manager"]
+of = "ui.stage"
+type = "ptr"
+offset = 0x20
+doc = "The manager of the game's windows. Checked in the game: get_unit_by_name with this manager finds the game's windows by their names."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[function."ui.unit_manager.get_unit_by_name"]
+locator = { signature = "E8 ?? ?? ?? ?? 48 8B F8 41 B0 01", at = 1, follow = "rel32" }
+abi = { args = ["ptr", "ptr", "i32"], ret = "ptr" }
+thread = "main"
+doc = "The window with a name: (manager, NUL-terminated name, which of the windows with that name, from 1); zero when there is none. Only reads the manager's list of windows."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[function."ui.unit_base.get_node_by_id"]
+locator = { signature = "E8 ?? ?? ?? ?? 44 84 B7", at = 1, follow = "rel32" }
+abi = { args = ["ptr", "u32"], ret = "ptr" }
+thread = "main"
+doc = "A window's own element with an id: (window, id); zero when the window is not built yet or has no such element."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[function."ui.unit_base.get_text_node_by_id"]
+locator = { signature = "E8 ?? ?? ?? ?? 41 C1 EF", at = 1, follow = "rel32" }
+abi = { args = ["ptr", "u32"], ret = "ptr" }
+thread = "main"
+doc = "A window's own text element with an id: (window, id); zero when the window is not built yet, has no such element, or the element does not show text."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[function."ui.res_node.set_visible"]
+locator = { signature = "E8 ?? ?? ?? ?? 48 83 C7 08 48 83 EE 01 75 D5 48 8B 4C 24 ??", at = 1, follow = "rel32" }
+abi = { args = ["ptr", "u8"], ret = "void" }
+thread = "main"
+doc = "Shows or hides an element: (element, 1 to show or 0 to hide). Sets the visible bit of the element's flags and marks the element for drawing again."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.res_node.flags"]
+of = "ui.res_node"
+type = "u32"
+locator = { in = "ui.res_node.set_visible", signature = "81 A1 ?? ?? ?? ?? FF FF EF FF", operand = "disp" }
+doc = "The 32-bit word with the element's flags; bit 20 is set while the element is visible."
+
+[function."ui.text_node.set_text"]
+locator = { signature = "E8 ?? ?? ?? ?? 33 F6 0F B7 D6", at = 1, follow = "rel32" }
+abi = { args = ["ptr", "ptr"], ret = "void" }
+thread = "main"
+doc = "Sets a text element's text: (element, NUL-terminated text in the game's encoding). The element keeps a copy."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.text_node.text"]
+of = "ui.text_node"
+type = "struct"
+offset = 0xD0
+doc = "The element's text, a Utf8String. Checked in the code: set_text takes this field's address first and stores the new text in it; and in the game: the texts read from it are the ones the windows show."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

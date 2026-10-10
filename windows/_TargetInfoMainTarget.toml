@@ -1,0 +1,11 @@
+window = "_TargetInfoMainTarget"
+doc = "The target's name and HP bar, when the target display is split into separate parts."
+layout = "ui/uld/TargetInfoMainTarget.uld"
+
+[elements.name]
+kind = "text"
+doc = "The target's name, with its free company tag for a player."
+
+[[layouts]]
+fingerprint = "1080f75ddf3ab3f7"
+elements = { name = 10 }
