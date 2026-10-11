@@ -1,0 +1,78 @@
+name: Release
+
+# A map release is a tag v<year>.<month>.<number> on main. The angelica
+# tool packs the map into map.pack, signed with the release key, and writes
+# the map.json feed that installed Angelica reads
+# (docs/development/releases.md).
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions: {}
+
+jobs:
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ANGELICA_RELEASE_PUBLIC_KEY: ${{ vars.ANGELICA_RELEASE_PUBLIC_KEY }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+          repository: AngelicaProject/angelica
+          ref: main
+          path: angelica-tool
+      - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master
+        with:
+          toolchain: 1.98.1
+
+      - name: Check the tag and the commit
+        id: version
+        run: |
+          if ! [[ "$GITHUB_REF_NAME" =~ ^v[1-9][0-9]{3}\.([1-9]|1[0-2])\.[1-9][0-9]*$ ]]; then
+            echo "::error::$GITHUB_REF_NAME is not v<year>.<month>.<number> without leading zeros"
+            exit 1
+          fi
+          git fetch --no-tags origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::$GITHUB_REF_NAME does not point at a commit on main"
+            exit 1
+          fi
+          if ! [[ "$ANGELICA_RELEASE_PUBLIC_KEY" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "::error::the repository variable ANGELICA_RELEASE_PUBLIC_KEY is not 64 hexadecimal digits"
+            exit 1
+          fi
+          echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Build the angelica tool
+        working-directory: angelica-tool
+        run: cargo build --release --locked -p angelica-cli
+
+      - name: Pack and sign the map
+        env:
+          ANGELICA_RELEASE_SIGNING_KEY: ${{ secrets.ANGELICA_RELEASE_SIGNING_KEY }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          tool=angelica-tool/target/release/angelica.exe
+          mkdir -p dist
+          "$tool" release map --map . --output dist/map.pack
+          "$tool" release feed --product map --channel stable --version "$VERSION" \
+            --published "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --file dist/map.pack --output dist/map.json
+          (cd dist && sha256sum -- * > SHA256SUMS.txt)
+          cat dist/SHA256SUMS.txt
+
+      - name: Publish
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --title "Game map $VERSION" --generate-notes --latest
