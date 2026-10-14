@@ -71,3 +71,4 @@ doc = "The game's windows: which are open and what they show and ask, which may 
 class = "others"
 read = { en = "Sees the game's windows and what they ask, including other players' names", ru = "Видит окна игры и их вопросы, включая имена других игроков" }
 act = { en = "Answers the game's dialogs for you", ru = "Отвечает на диалоги игры за вас" }
+change = { en = "Hides parts of the game's windows and puts its own text in them", ru = "Скрывает части окон игры и вписывает в них свой текст" }

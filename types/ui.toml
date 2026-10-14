@@ -50,3 +50,53 @@ doc = "The value, for the kind uint."
 [types."ui.atk_value".fields.text]
 doc = "The text, for the kinds string, const_string, and managed_string."
 text = 1024
+
+[types."ui.unit_base".fields.layout]
+doc = "The window's elements, as its layout file builds them."
+at = "ui.unit_base.widget"
+ref = "ui.widget_info"
+
+[types."ui.widget_info"]
+doc = "The elements of a window, as its layout file builds them."
+domain = "windows"
+
+[types."ui.widget_info".fields.element_count]
+doc = "How many elements the window has."
+at = "ui.widget_info.node_count"
+
+[types."ui.widget_info".fields.elements]
+doc = "The window's elements: images, text, and groups of others. The window schemas of the map name some of them."
+at = "ui.widget_info.nodes"
+array = { of = "ui.res_node", count = "element_count", most = 1024, stride = 8, pointers = true }
+
+[types."ui.res_node"]
+doc = "An element of a window: an image, text, or a group of others."
+domain = "windows"
+
+[types."ui.res_node".fields.name]
+doc = "The element's name in the window schema of its window; an element the schema does not name is a number."
+at = "ui.res_node.id"
+element = "ui.unit_base.name"
+
+[types."ui.res_node".fields.kind]
+doc = "What the element is."
+at = "ui.res_node.type"
+enum = "ui.node_type"
+
+[types."ui.res_node".fields.visible]
+doc = "Whether the element is shown. The game shows and hides elements itself, so a plugin's value is held."
+at = "ui.res_node.flags"
+bit = 20
+set = { call = "ui.res_node.set_visible", hold = true }
+
+[types."ui.text_node"]
+doc = "An element of a window that shows text."
+domain = "windows"
+extends = "ui.res_node"
+variant = { field = "kind", values = ["text"] }
+
+[types."ui.text_node".fields.text]
+doc = "The text the element shows, its macros encoded. The game writes it again itself, so a plugin's text is held."
+pointer = "text.utf8_string.string_ptr"
+text = 4096
+set = { call = "ui.text_node.set_text", hold = true }

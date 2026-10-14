@@ -1,0 +1,2 @@
+doc = "What an element of a window is, as the game numbers its node types."
+values = { text = 3 }
