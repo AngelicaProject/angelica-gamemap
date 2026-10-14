@@ -64,3 +64,121 @@ type = "struct"
 offset = 0x23B0
 doc = "The statuses on a battle character."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[global."character.conditions.instance"]
+locator = { signature = "48 8D 0D ?? ?? ?? ?? 66 2B D8", at = 3, follow = "rel32" }
+type = "struct"
+doc = "The character's conditions: a byte per condition, 1 while it holds."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.dead"]
+of = "character.conditions"
+type = "bool"
+offset = 2
+doc = "The character is dead. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.mounted"]
+of = "character.conditions"
+type = "bool"
+offset = 4
+doc = "The character rides a mount. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.crafting"]
+of = "character.conditions"
+type = "bool"
+offset = 5
+doc = "The character is crafting. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.gathering"]
+of = "character.conditions"
+type = "bool"
+offset = 6
+doc = "The character is gathering. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.occupied"]
+of = "character.conditions"
+type = "bool"
+offset = 25
+doc = "The character is busy with something that stops other actions. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.in_combat"]
+of = "character.conditions"
+type = "bool"
+offset = 26
+doc = "The character is in combat. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.casting"]
+of = "character.conditions"
+type = "bool"
+offset = 27
+doc = "The character is casting. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.in_event"]
+of = "character.conditions"
+type = "bool"
+offset = 31
+doc = "The character talks to someone or takes part in an event. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.bound_by_duty"]
+of = "character.conditions"
+type = "bool"
+offset = 34
+doc = "The character is in a duty. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.in_cutscene"]
+of = "character.conditions"
+type = "bool"
+offset = 35
+doc = "A cutscene plays. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.between_areas"]
+of = "character.conditions"
+type = "bool"
+offset = 45
+doc = "The character moves between areas: loading, teleporting. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.jumping"]
+of = "character.conditions"
+type = "bool"
+offset = 48
+doc = "The character jumps. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.in_flight"]
+of = "character.conditions"
+type = "bool"
+offset = 77
+doc = "The character flies. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.swimming"]
+of = "character.conditions"
+type = "bool"
+offset = 80
+doc = "The character swims. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.diving"]
+of = "character.conditions"
+type = "bool"
+offset = 81
+doc = "The character dives. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }
+
+[field."character.conditions.in_duty_queue"]
+of = "character.conditions"
+type = "bool"
+offset = 91
+doc = "The character waits in the duty finder's queue. The condition's number as the game numbers its conditions, from FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "b21433ecc5cf56bc7e01bd015ade28bba0751e34" }

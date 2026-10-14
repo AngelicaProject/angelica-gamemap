@@ -39,3 +39,55 @@ extends = "character.character"
 doc = "The statuses on the character."
 embed = "status.status_manager"
 domain = "statuses"
+
+[types."character.conditions"]
+doc = "What the player's character is doing now: in combat, casting, mounted, busy, between areas, and the like."
+domain = "activity"
+
+[types."character.conditions".fields.dead]
+doc = "The character is dead."
+
+[types."character.conditions".fields.mounted]
+doc = "The character rides a mount."
+
+[types."character.conditions".fields.crafting]
+doc = "The character is crafting."
+
+[types."character.conditions".fields.gathering]
+doc = "The character is gathering."
+
+[types."character.conditions".fields.occupied]
+doc = "The character is busy with something that stops other actions."
+
+[types."character.conditions".fields.in_combat]
+doc = "The character is in combat."
+
+[types."character.conditions".fields.casting]
+doc = "The character is casting."
+
+[types."character.conditions".fields.in_event]
+doc = "The character talks to someone or takes part in an event."
+
+[types."character.conditions".fields.bound_by_duty]
+doc = "The character is in a duty."
+
+[types."character.conditions".fields.in_cutscene]
+doc = "A cutscene plays."
+
+[types."character.conditions".fields.between_areas]
+doc = "The character moves between areas: loading, teleporting."
+
+[types."character.conditions".fields.jumping]
+doc = "The character jumps."
+
+[types."character.conditions".fields.in_flight]
+doc = "The character flies."
+
+[types."character.conditions".fields.swimming]
+doc = "The character swims."
+
+[types."character.conditions".fields.diving]
+doc = "The character dives."
+
+[types."character.conditions".fields.in_duty_queue]
+doc = "The character waits in the duty finder's queue."

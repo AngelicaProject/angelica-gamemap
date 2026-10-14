@@ -28,8 +28,9 @@ Then load the documentation for the task:
 
 - An entry is added because a plugin or host service needs it, never speculatively.
 - Every change to `entries/` is accompanied by build records regenerated with `angelica map verify` against the current game executable. Never edit `builds/` by hand.
-- A type, field, or event of the object model (`types/`, `roots.toml`, `events.toml`, `enums/`) is added when a plugin needs it, after `angelica look` showed in the running game that it holds what its `doc` says. It is never data that could compromise the account, keeps its name and meaning across builds, and belongs to a domain whose approved wording covers it; a number that identifies game data has its `sheet`.
-- A new domain in `domains.toml`, and any change to a domain's wording or class, is approved by the maintainer.
+- A type, field, event, or action of the object model (`types/`, `roots.toml`, `events.toml`, `actions.toml`, `enums/`) is added when a plugin needs it, after `angelica look` showed in the running game that it holds what its `doc` says. It is never data that could compromise the account, keeps its name and meaning across builds, and belongs to a domain whose approved wording covers it; a number that identifies game data has its `sheet`.
+- A new domain in `domains.toml`, and any change to a domain's wording or class, including its `act` wording, is approved by the maintainer.
+- An action calls only a function the game's own interface calls for the player, with the arguments it passes, under the conditions the player could do it; its rate stays low.
 - A column is named in `sheets/` when a plugin needs it, from the values `angelica excel show` lists, and `angelica map verify` reports its sheet as known.
 - An element is named in `windows/` when a plugin needs it, after it was seen in the game to be what its `doc` says, and `angelica map verify` reports its window as known.
 - Never guess an address, offset, or signature. An entry that cannot be verified stays absent.

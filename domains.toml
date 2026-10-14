@@ -41,3 +41,15 @@ read = { en = "Sees what your retainers hold", ru = "Видит, что хран
 doc = "The actions the player uses: abilities, spells, items, mounts, and the others the action bars hold."
 class = "you"
 read = { en = "Sees the actions you use", ru = "Видит действия, которые вы используете" }
+act = { en = "Uses actions for you: abilities, spells, items, mounts", ru = "Использует действия за вас: способности, заклинания, предметы, ездовых животных" }
+
+[domains.activity]
+doc = "What the player's character is doing: in combat, casting, mounted, busy, between areas."
+class = "you"
+read = { en = "Sees what you are doing: in combat, casting, mounted, busy", ru = "Видит, чем вы заняты: бой, чтение заклинания, верховая езда, занятость" }
+
+[domains.teleport]
+doc = "Teleporting to aetherytes."
+class = "you"
+read = { en = "Sees where you teleport", ru = "Видит, куда вы телепортируетесь" }
+act = { en = "Teleports you to aetherytes, paying the fee", ru = "Телепортирует вас к эфиритам, оплачивая перелёт" }

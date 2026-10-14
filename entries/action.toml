@@ -4,3 +4,9 @@ abi = { args = ["ptr", "u32", "u32", "u64", "u32", "u32", "u32", "ptr"], ret = "
 thread = "main"
 doc = "The player asks to use an action: its kind, its id, the target's game object id, an extra value (an item's container and slot), the mode, the combo route, and where to say whether area targeting started; true when the request was taken."
 origin = { source = "FFXIVClientStructs", commit = "994319b521c85e445e8907474b3a905cc05187c3" }
+
+[global."action.action_manager.instance"]
+locator = { signature = "48 8D 0D ?? ?? ?? ?? F3 0F 10 13", at = 3, follow = "rel32" }
+type = "struct"
+doc = "The action manager: the actions the player uses, their recasts, and the queued one. `use_action` takes it as its first argument."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

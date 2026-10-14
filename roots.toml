@@ -12,3 +12,8 @@ type = "game.game_main"
 doc = "The player's items: bags, gear, currency, crystals, the armoury chest, saddlebags, and the open retainer's inventory."
 global = "inventory.inventory_manager.instance"
 type = "inventory.inventory_manager"
+
+[roots.activity]
+doc = "What the player's character is doing now."
+global = "character.conditions.instance"
+type = "character.conditions"
