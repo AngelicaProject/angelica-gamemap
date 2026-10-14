@@ -17,3 +17,8 @@ type = "inventory.inventory_manager"
 doc = "What the player's character is doing now."
 global = "character.conditions.instance"
 type = "character.conditions"
+
+[roots.camera]
+doc = "The game's cameras."
+global = "camera.control.instance"
+type = "camera.camera_manager"

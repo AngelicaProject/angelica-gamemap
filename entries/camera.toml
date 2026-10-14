@@ -1,0 +1,54 @@
+[global."camera.control.instance"]
+locator = { signature = "4C 8D 35 ?? ?? ?? ?? 48 8B 09", at = 3, follow = "rel32" }
+type = "struct"
+doc = "The game's controls; their first part is the camera manager."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.camera_manager.camera"]
+of = "camera.camera_manager"
+type = "ptr"
+offset = 0x0
+doc = "The normal in-game camera, the first of the manager's cameras. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.camera.distance"]
+of = "camera.camera"
+type = "f32"
+offset = 0x124
+doc = "How far the camera is from the character, in yalms. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.camera.min_distance"]
+of = "camera.camera"
+type = "f32"
+offset = 0x128
+doc = "The closest the player can zoom in, in yalms. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.camera.max_distance"]
+of = "camera.camera"
+type = "f32"
+offset = 0x12C
+doc = "The farthest the player can zoom out, in yalms. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.camera.fov"]
+of = "camera.camera"
+type = "f32"
+offset = 0x130
+doc = "The camera's field of view, in radians. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.camera.direction_h"]
+of = "camera.camera"
+type = "f32"
+offset = 0x140
+doc = "Where the camera faces: 0 is north, growing clockwise, in radians. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.camera.direction_v"]
+of = "camera.camera"
+type = "f32"
+offset = 0x144
+doc = "How far the camera looks up (positive) or down (negative), in radians. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

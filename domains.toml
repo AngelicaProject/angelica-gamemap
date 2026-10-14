@@ -53,3 +53,9 @@ doc = "Teleporting to aetherytes."
 class = "you"
 read = { en = "Sees where you teleport", ru = "Видит, куда вы телепортируетесь" }
 act = { en = "Teleports you to aetherytes, paying the fee", ru = "Телепортирует вас к эфиритам, оплачивая перелёт" }
+
+[domains.camera]
+doc = "The player's camera: how far it is, its zoom limits, and where it faces."
+class = "display"
+read = { en = "Sees your camera: zoom and direction", ru = "Видит вашу камеру: приближение и направление" }
+change = { en = "Changes your camera's zoom limits", ru = "Меняет пределы приближения вашей камеры" }
