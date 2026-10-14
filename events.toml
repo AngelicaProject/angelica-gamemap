@@ -49,3 +49,72 @@ arg = 4
 [events.chat_message_added.outcomes.hide]
 doc = "The message is not added to the chat log, as when no chat tab shows its kind. Checked in 2026.10.06: the function returns 0 on that path itself."
 returns = 0
+
+[events.sheet_text]
+doc = "A text cell of a row of one of the game's sheets, as the game stores the row it read, before anything in the game sees it: names, descriptions, dialogue. The host derives one per cell at both row stores of the sheets (also excel.ring_buffer_page_row_resolver.store_row)."
+at = "excel.hash_table_page_row_resolver.store_row"
+derived = "sheet_cell"
+domain = "text"
+rules = "text-table-v1"
+
+[events.sheet_text.args.sheet]
+doc = "The sheet's name, such as Item."
+from = "sheet"
+text = 256
+
+[events.sheet_text.args.language]
+doc = "The game language of the sheet's rows, as the game numbers its languages; 0 for a sheet without one."
+from = "language"
+
+[events.sheet_text.args.row]
+doc = "The row's id."
+from = "row"
+
+[events.sheet_text.args.subrow]
+doc = "The subrow's id; 0 in a sheet without subrows."
+from = "subrow"
+
+[events.sheet_text.args.column]
+doc = "The column's position among all of the sheet's columns."
+from = "column"
+
+[events.sheet_text.args.text]
+doc = "The cell's text as the game has it, its macros encoded."
+from = "text"
+text = 4096
+
+[events.sheet_text.outcomes.replace]
+doc = "The cell holds the rule's text instead, for everything in the game that reads the row."
+text = 65535
+
+[events.letter_upper]
+doc = "A letter beyond ASCII that the game's conversion to capital letters meets where its rules capitalize: the first letter, every word's, or every letter, outside excluded words."
+at = "text.utf8_string.to_upper"
+derived = "case_letter"
+domain = "text"
+
+[events.letter_upper.args.letter]
+doc = "The letter, in UTF-8."
+from = "letter"
+text = 4
+
+[events.letter_upper.outcomes.becomes]
+doc = "The conversion gives the rule's letter, of the same length in UTF-8."
+text = 4
+same_length = "letter"
+
+[events.letter_lower]
+doc = "A letter beyond ASCII that the game's conversion to small letters meets."
+at = "text.utf8_string.to_lower"
+derived = "case_letter"
+domain = "text"
+
+[events.letter_lower.args.letter]
+doc = "The letter, in UTF-8."
+from = "letter"
+text = 4
+
+[events.letter_lower.outcomes.becomes]
+doc = "The conversion gives the rule's letter, of the same length in UTF-8."
+text = 4
+same_length = "letter"
