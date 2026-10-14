@@ -20,3 +20,22 @@ arg = 3
 [events.action_used.args.extra]
 doc = "For an item, its container in the high byte and its slot in the low byte, or 0xFFFF from a hotbar."
 arg = 4
+
+[events.chat_message_added]
+doc = "The game adds a message to the chat log: a player's message, a system message, a battle line. A rule may hide it."
+at = "ui.log_module.print_message"
+domain = "chat"
+rate = 64
+
+[events.chat_message_added.args.kind]
+doc = "The kind of message: a row of the LogKind sheet, such as 57 for system messages."
+arg = 1
+mask = 0x7F
+
+[events.chat_message_added.args.timestamp]
+doc = "When the message was sent, in seconds since 1970; 0 for now."
+arg = 4
+
+[events.chat_message_added.outcomes.hide]
+doc = "The message is not added to the chat log, as when no chat tab shows its kind. Checked in 2026.10.06: the function returns 0 on that path itself."
+returns = 0

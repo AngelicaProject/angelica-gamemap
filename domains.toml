@@ -59,3 +59,9 @@ doc = "The player's camera: how far it is, its zoom limits, and where it faces."
 class = "display"
 read = { en = "Sees your camera: zoom and direction", ru = "Видит вашу камеру: приближение и направление" }
 change = { en = "Changes your camera's zoom limits", ru = "Меняет пределы приближения вашей камеры" }
+
+[domains.chat]
+doc = "The chat log: the messages the player and other players send, and the game's own."
+class = "others"
+read = { en = "Sees your chat log, including other players' messages", ru = "Видит ваш чат, включая сообщения других игроков" }
+change = { en = "Hides messages in your chat log", ru = "Скрывает сообщения в вашем чате" }
