@@ -1,0 +1,2 @@
+doc = "The answers of a yes or no dialog, as its callback numbers them."
+values = { yes = 0, no = 1 }

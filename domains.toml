@@ -65,3 +65,9 @@ doc = "The chat log: the messages the player and other players send, and the gam
 class = "others"
 read = { en = "Sees your chat log, including other players' messages", ru = "Видит ваш чат, включая сообщения других игроков" }
 change = { en = "Hides messages in your chat log", ru = "Скрывает сообщения в вашем чате" }
+
+[domains.windows]
+doc = "The game's windows: which are open and what they show and ask, which may name other players."
+class = "others"
+read = { en = "Sees the game's windows and what they ask, including other players' names", ru = "Видит окна игры и их вопросы, включая имена других игроков" }
+act = { en = "Answers the game's dialogs for you", ru = "Отвечает на диалоги игры за вас" }

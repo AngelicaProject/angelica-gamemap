@@ -123,3 +123,52 @@ of = "ui.res_node"
 type = "u16"
 locator = { in = "ui.unit_base.get_text_node_by_id", signature = "66 41 83 79 ?? 03", operand = "disp" }
 doc = "The element's type; 3 is an element that shows text."
+
+[field."ui.unit_base.values"]
+of = "ui.unit_base"
+type = "ptr"
+offset = 0x178
+doc = "The window's values: what the game filled it with, such as a dialog's question and its choices. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.unit_base.value_count"]
+of = "ui.unit_base"
+type = "u16"
+offset = 0x1E2
+doc = "How many values the window has. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.atk_value.kind"]
+of = "ui.atk_value"
+type = "u8"
+offset = 0x0
+doc = "What the value holds; the value itself is 8 bytes on. From FFXIVClientStructs; to be read in the running game."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.atk_value.integer"]
+of = "ui.atk_value"
+type = "i32"
+offset = 0x8
+doc = "The value as a signed integer, for the kind int. From FFXIVClientStructs."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.atk_value.unsigned"]
+of = "ui.atk_value"
+type = "u32"
+offset = 0x8
+doc = "The value as an unsigned integer, for the kind uint. From FFXIVClientStructs."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."ui.atk_value.text"]
+of = "ui.atk_value"
+type = "ptr"
+offset = 0x8
+doc = "The value as a pointer to NUL-terminated game text, for the kinds string, const_string, and managed_string. From FFXIVClientStructs."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[function."ui.unit_base.fire_callback_int"]
+locator = { signature = "E9 ?? ?? ?? ?? 83 C3 F9", at = 1, follow = "rel32" }
+abi = { args = ["ptr", "i32"], ret = "bool" }
+thread = "main"
+doc = "Answers a window with one integer, as clicking its choice does, and closes it: (window, value). Checked in 2026.10.06: it stores the value as an int value (kind 3) on the stack and calls the window's callback with one value and close set."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

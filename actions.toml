@@ -72,3 +72,35 @@ sheet = "Aetheryte"
 arg = 2
 doc = "The index of an aethernet shard within the aetheryte; 0 for the aetheryte itself."
 default = 0
+
+[actions.answer_yes_no]
+doc = "Answers the open yes or no dialog, as clicking Yes or No does."
+call = "ui.unit_base.fire_callback_int"
+domain = "windows"
+rate = 2
+when = [{ path = "windows.unit_manager.windows[name = \"SelectYesno\"]", says = "no yes or no dialog is open" }]
+
+[actions.answer_yes_no.args.window]
+arg = 0
+object = "windows.unit_manager.windows[name = \"SelectYesno\"]"
+
+[actions.answer_yes_no.args.answer]
+arg = 1
+doc = "Yes or no."
+enum = "ui.yes_no"
+
+[actions.choose_entry]
+doc = "Chooses an entry of the open list of choices, such as what to say to someone, as clicking it does."
+call = "ui.unit_base.fire_callback_int"
+domain = "windows"
+rate = 2
+when = [{ path = "windows.unit_manager.windows[name = \"SelectString\"]", says = "no list of choices is open" }]
+
+[actions.choose_entry.args.window]
+arg = 0
+object = "windows.unit_manager.windows[name = \"SelectString\"]"
+
+[actions.choose_entry.args.entry]
+arg = 1
+doc = "The entry's position in the list, from 0."
+range = [0, 63]

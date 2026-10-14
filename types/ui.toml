@@ -1,0 +1,52 @@
+[types."ui.stage"]
+doc = "The stage that owns the game's windows."
+domain = "windows"
+
+[types."ui.stage".fields.unit_manager]
+doc = "The manager of the game's windows."
+ref = "ui.unit_manager"
+
+[types."ui.unit_manager"]
+doc = "The manager of the game's windows."
+domain = "windows"
+
+[types."ui.unit_manager".fields.unit_count]
+doc = "How many windows are loaded."
+
+[types."ui.unit_manager".fields.windows]
+doc = "The loaded windows, open or hidden."
+at = "ui.unit_manager.units"
+array = { of = "ui.unit_base", count = "unit_count", most = 256, stride = 8, pointers = true }
+
+[types."ui.unit_base"]
+doc = "One of the game's windows."
+domain = "windows"
+
+[types."ui.unit_base".fields.name]
+doc = "The window's name in the game, such as SelectYesno."
+text = 32
+
+[types."ui.unit_base".fields.value_count]
+doc = "How many values the window has."
+
+[types."ui.unit_base".fields.values]
+doc = "The window's values: what the game filled it with, such as a dialog's question and its choices."
+array = { of = "ui.atk_value", count = "value_count", most = 512, stride = 16 }
+
+[types."ui.atk_value"]
+doc = "One value of a window."
+domain = "windows"
+
+[types."ui.atk_value".fields.kind]
+doc = "What the value holds."
+enum = "ui.atk_value_kind"
+
+[types."ui.atk_value".fields.integer]
+doc = "The value, for the kind int."
+
+[types."ui.atk_value".fields.unsigned]
+doc = "The value, for the kind uint."
+
+[types."ui.atk_value".fields.text]
+doc = "The text, for the kinds string, const_string, and managed_string."
+text = 1024

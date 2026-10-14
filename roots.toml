@@ -22,3 +22,8 @@ type = "character.conditions"
 doc = "The game's cameras."
 global = "camera.control.instance"
 type = "camera.camera_manager"
+
+[roots.windows]
+doc = "The game's windows; nothing before the stage exists."
+global = "ui.stage"
+type = "ui.stage"

@@ -1,0 +1,2 @@
+doc = "What a value of a window holds, as the game numbers it."
+values = { undefined = 0, null = 1, bool = 2, int = 3, int64 = 4, uint = 5, uint64 = 6, float = 7, string = 8, wide_string = 9, const_string = 10, vector = 11, pointer = 12, values = 13, managed_string = 40, managed_vector = 43 }
