@@ -1,0 +1,41 @@
+[types."character.character"]
+doc = "A character: a player, an NPC with a class, or a monster."
+domain = "character"
+extends = "object.game_object"
+
+[types."character.character".fields.data]
+doc = "The character's class, level, HP, and MP."
+embed = "character.character_data"
+
+[types."character.character_data"]
+doc = "A character's class, level, HP, and MP."
+domain = "character"
+
+[types."character.character_data".fields.class_job]
+doc = "The current class or job."
+sheet = "ClassJob"
+
+[types."character.character_data".fields.level]
+doc = "The level of the current class or job."
+
+[types."character.character_data".fields.health]
+doc = "Current HP."
+
+[types."character.character_data".fields.max_health]
+doc = "Maximum HP."
+
+[types."character.character_data".fields.mana]
+doc = "Current MP."
+
+[types."character.character_data".fields.max_mana]
+doc = "Maximum MP."
+
+[types."character.battle_chara"]
+doc = "A character that can fight, such as the player's."
+domain = "character"
+extends = "character.character"
+
+[types."character.battle_chara".fields.status_manager]
+doc = "The statuses on the character."
+embed = "status.status_manager"
+domain = "statuses"

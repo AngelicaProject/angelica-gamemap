@@ -1,0 +1,38 @@
+# The domains of the object model: what a plugin asks the player to read.
+# The maintainer approves each domain and its wording once; fields and types
+# join a domain without a new approval.
+
+[domains.character]
+doc = "The player's character: name, class, level, HP, and MP."
+class = "you"
+read = { en = "Sees your character: name, class, level, HP and MP", ru = "Видит вашего персонажа: имя, класс, уровень, HP и MP" }
+
+[domains.location]
+doc = "Where the player is: the zone and the position in it."
+class = "you"
+read = { en = "Sees where you are: the zone and your position", ru = "Видит, где вы: зону и место в ней" }
+
+[domains.statuses]
+doc = "The statuses on the player's character."
+class = "you"
+read = { en = "Sees the statuses on your character", ru = "Видит эффекты на вашем персонаже" }
+
+[domains.inventory]
+doc = "The items the player carries: the bags, the equipped gear, the currency, the crystals, and the key items."
+class = "you"
+read = { en = "Sees the items you carry", ru = "Видит предметы, которые вы носите" }
+
+[domains.armoury]
+doc = "The armoury chest."
+class = "you"
+read = { en = "Sees your armoury chest", ru = "Видит ваш оружейный сундук" }
+
+[domains.saddlebag]
+doc = "The chocobo saddlebags."
+class = "you"
+read = { en = "Sees your chocobo saddlebags", ru = "Видит седельные сумки вашего чокобо" }
+
+[domains.retainers]
+doc = "What the player's retainers hold, while the player has a retainer's inventory open."
+class = "you"
+read = { en = "Sees what your retainers hold", ru = "Видит, что хранят ваши ретейнеры" }

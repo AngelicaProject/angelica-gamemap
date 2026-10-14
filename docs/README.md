@@ -15,7 +15,7 @@ This repository contains the data of the game map. The format and the tools are 
 | Add an entry | [`product/principles.md`](./product/principles.md), [`architecture/naming.md`](./architecture/naming.md) |
 | Update the map after a game patch | [`architecture/patch-day.md`](./architecture/patch-day.md) |
 | Start an entry from externally maintained data | [`architecture/import.md`](./architecture/import.md) |
-| Understand the file format | [game map format v1](https://github.com/AngelicaProject/angelica/blob/main/docs/formats/game-map-v1.md) |
+| Understand the file format | [game map format v2](https://github.com/AngelicaProject/angelica/blob/main/docs/formats/game-map-v2.md) |
 | Prepare a branch, commit, or pull request | [`development/git.md`](./development/git.md), [`development/pull-requests.md`](./development/pull-requests.md) |
 | Review a change | [`development/code-review.md`](./development/code-review.md) |
 | Investigate CI | [`development/ci.md`](./development/ci.md) |

@@ -21,9 +21,9 @@ An area groups entries about one part of the game and is the name of its file in
 - A field is `<area>.<type>.<field>`: `ui.unit_base.name`.
 - A patch is named for what it changes, not for its bytes: `ui.chat_log.skip_length_check`.
 
-## State tables
+## Object model
 
-A state table is named for its domain, `self`, or for a subject of the domain, `self.zone`; a list table for its elements, in the plural, `self.statuses`. Its fields are named for what they hold, as columns are: `class_job`, `max_health`, `position_x`. Field names are stable as column names are.
+A type has the name the `field` entries of its structure have in their `of`: `inventory.inventory_item`. A type's field is named for what it holds, as columns are: `class_job`, `max_health`, `position_x`; an array in the plural: `containers`, `statuses`. A field's name may differ from its entry's last word when the entry's name says how the game stores it (`at = "inventory.inventory_item.item_id"` for the field `item`). A root is named for the object plugins start from: `player`, `inventory`. A domain is named for what a player would call the data: `inventory`, `armoury`, `retainers`. An enum's values are named for what they mean in the game: `bag_1`, `crystals`. Names in the object model are stable as column names are.
 
 ## Sheet columns
 

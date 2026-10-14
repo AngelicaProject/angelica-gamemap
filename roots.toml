@@ -1,0 +1,14 @@
+[roots.player]
+doc = "The player's character; nothing before the player logs in."
+global = "character.local_player"
+type = "character.battle_chara"
+
+[roots.game]
+doc = "The game's main state: the zone."
+global = "game.game_main"
+type = "game.game_main"
+
+[roots.inventory]
+doc = "The player's items: bags, gear, currency, crystals, the armoury chest, saddlebags, and the open retainer's inventory."
+global = "inventory.inventory_manager.instance"
+type = "inventory.inventory_manager"
