@@ -1,0 +1,8 @@
+[types."text.utf8_string"]
+doc = "A string of the game's text, such as a chat message or a sender's name."
+domain = "chat"
+
+[types."text.utf8_string".fields.text]
+doc = "The text as the game stores it, its macros encoded."
+at = "text.utf8_string.string_ptr"
+text = 4096

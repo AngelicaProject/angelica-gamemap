@@ -32,6 +32,16 @@ doc = "The kind of message: a row of the LogKind sheet, such as 57 for system me
 arg = 1
 mask = 0x7F
 
+[events.chat_message_added.args.sender]
+doc = "Who sent the message: a player's name with its links; empty for a message without a sender."
+arg = 2
+ref = "text.utf8_string"
+
+[events.chat_message_added.args.message]
+doc = "The message."
+arg = 3
+ref = "text.utf8_string"
+
 [events.chat_message_added.args.timestamp]
 doc = "When the message was sent, in seconds since 1970; 0 for now."
 arg = 4
