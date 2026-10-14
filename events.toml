@@ -1,0 +1,22 @@
+[events.action_used]
+doc = "The player asked to use an action: from a hotbar, a menu, a macro, or the duty finder; the game may still refuse it or queue it."
+at = "action.action_manager.use_action"
+domain = "actions"
+rate = 32
+
+[events.action_used.args.kind]
+doc = "The kind of action."
+arg = 1
+enum = "action.action_type"
+
+[events.action_used.args.action]
+doc = "The action's id: a row of the Action sheet for an action, of the Item sheet for an item, of the GeneralAction sheet for a general action, and so on by kind."
+arg = 2
+
+[events.action_used.args.target]
+doc = "The game object id of the intended target; 0xE0000000 without one."
+arg = 3
+
+[events.action_used.args.extra]
+doc = "For an item, its container in the high byte and its slot in the low byte, or 0xFFFF from a hotbar."
+arg = 4

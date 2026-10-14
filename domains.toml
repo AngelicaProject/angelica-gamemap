@@ -36,3 +36,8 @@ read = { en = "Sees your chocobo saddlebags", ru = "Видит седельны�
 doc = "What the player's retainers hold, while the player has a retainer's inventory open."
 class = "you"
 read = { en = "Sees what your retainers hold", ru = "Видит, что хранят ваши ретейнеры" }
+
+[domains.actions]
+doc = "The actions the player uses: abilities, spells, items, mounts, and the others the action bars hold."
+class = "you"
+read = { en = "Sees the actions you use", ru = "Видит действия, которые вы используете" }

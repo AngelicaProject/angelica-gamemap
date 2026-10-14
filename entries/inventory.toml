@@ -105,3 +105,27 @@ of = "inventory.inventory_item"
 type = "u32"
 locator = { in = "inventory.inventory_item.copy", signature = "89 46 ?? 0F B6 47 0E", operand = "disp" }
 doc = "The item whose look the item has: a row of the Item sheet; zero without a glamour."
+
+[field."inventory.inventory_item.materia"]
+of = "inventory.inventory_item"
+type = "struct"
+locator = { in = "inventory.inventory_item.copy", signature = "F2 0F 10 47 ?? F2 0F 11 46", operand = "disp" }
+doc = "The materia melded into the item: five slots of 2 bytes."
+
+[field."inventory.inventory_item.materia_grades"]
+of = "inventory.inventory_item"
+type = "struct"
+locator = { in = "inventory.inventory_item.copy", signature = "8B 47 ?? 89 46 ?? 0F B6 47", operand = "disp" }
+doc = "The grades of the melded materia: five slots of 1 byte, in the order of the materia."
+
+[field."inventory.materia_slot.materia"]
+of = "inventory.materia_slot"
+type = "u16"
+offset = 0x0
+doc = "The materia in the slot: a row of the Materia sheet; zero in an empty slot."
+
+[field."inventory.materia_grade.grade"]
+of = "inventory.materia_grade"
+type = "u8"
+offset = 0x0
+doc = "The grade of the materia in the slot of the same position: an index of the Materia sheet's grades, from 0."

@@ -1,0 +1,2 @@
+doc = "The kinds of action the player can use, as the game numbers them."
+values = { action = 1, item = 2, event_item = 3, event_action = 4, general_action = 5, buddy_action = 6, main_command = 7, companion = 8, craft_action = 9, pet_action = 11, mount = 13, pvp_action = 14, field_marker = 15, chocobo_race_ability = 16, chocobo_race_item = 17, bgc_army_action = 19, ornament = 20 }

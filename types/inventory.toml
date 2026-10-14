@@ -51,3 +51,26 @@ sheet = "Item"
 
 [types."inventory.inventory_item".fields.symbolic]
 doc = "Whether the slot only links to a slot of another container; its item is then not the slot's own."
+
+[types."inventory.inventory_item".fields.materia]
+doc = "The materia melded into the item, by slot; an empty slot is skipped. The grade of each is in `materia_grades` at the same position."
+array = { of = "inventory.materia_slot", length = 5, stride = 2, present = "materia" }
+
+[types."inventory.inventory_item".fields.materia_grades]
+doc = "The grades of the melded materia, by slot."
+array = { of = "inventory.materia_grade", length = 5, stride = 1 }
+
+[types."inventory.materia_slot"]
+doc = "One materia slot of an item."
+domain = "inventory"
+
+[types."inventory.materia_slot".fields.materia]
+doc = "The materia."
+sheet = "Materia"
+
+[types."inventory.materia_grade"]
+doc = "The grade of one materia slot of an item."
+domain = "inventory"
+
+[types."inventory.materia_grade".fields.grade]
+doc = "The grade, from 0."
