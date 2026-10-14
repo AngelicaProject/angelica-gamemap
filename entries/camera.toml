@@ -52,3 +52,10 @@ type = "f32"
 offset = 0x144
 doc = "How far the camera looks up (positive) or down (negative), in radians. From FFXIVClientStructs; to be read in the running game."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."camera.control.view_projection"]
+of = "camera.control"
+type = "struct"
+offset = 0x76B0
+doc = "The game camera's view-projection matrix this frame: 16 f32 of row vectors, as the host projects places of the world onto the screen with it. From FFXIVClientStructs; to be checked in the running game, where a mark drawn at the character's position stands at the character's feet."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
