@@ -21,4 +21,4 @@ map.toml ────────┘                                            
 
 ## Publication
 
-A merge to `main` publishes the map: the entries and the build records of the supported game versions are packed, signed, and served as a feed that the host checks at start. The host uses a published build record for the running executable when one exists; otherwise it resolves entries itself, as described in the `angelica` repository ([game map resolution](https://github.com/AngelicaProject/angelica/blob/main/docs/architecture/game-map.md)).
+A release tag on `main` publishes the map ([releases](../development/releases.md)): the entries and the build records of the supported game versions are packed, signed, and served as a feed that the host checks 20 seconds after the game starts and every hour. A merge alone publishes nothing. The host uses a published build record for the running executable when one exists; otherwise it resolves entries itself, as described in the `angelica` repository ([game map resolution](https://github.com/AngelicaProject/angelica/blob/main/docs/architecture/game-map.md)).
