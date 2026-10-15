@@ -2,7 +2,7 @@
 
 This file is the repository entry point for coding tools. Durable rules live in `docs/`; task-specific execution guidance lives in `.ai/`. Do not duplicate canonical documentation here.
 
-This repository contains data only. The format is owned by the `angelica` repository: <https://github.com/AngelicaProject/angelica/blob/main/docs/formats/game-map-v2.md>. The tools that read and verify the map are the `angelica map` commands from that repository.
+This repository contains the map's data, and in `tools/` the scripts map work uses beside Ghidra. The format is owned by the `angelica` repository: <https://github.com/AngelicaProject/angelica/blob/main/docs/formats/game-map-v2.md>. The tools that read and verify the map are the `angelica map` commands from that repository.
 
 ## Context loading
 
@@ -20,7 +20,7 @@ Then load the documentation for the task:
 - Rules every entry follows: `docs/product/principles.md`
 - Repository layout and how data flows to players: `docs/architecture/overview.md`
 - Naming entries: `docs/architecture/naming.md`
-- Adding what a plugin needs, as its author or their agent: `docs/architecture/adding-entries.md`
+- Adding what a plugin needs, as the agent working on that plugin: `.ai/adding-entries.md`
 - Updating the map after a game patch: `docs/architecture/patch-day.md`
 - Using externally maintained data: `docs/architecture/import.md`
 - Contribution workflow: `docs/development/README.md`

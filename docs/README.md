@@ -12,7 +12,7 @@ This repository contains the data of the game map. The format and the tools are 
 
 | Task | Read first |
 | --- | --- |
-| Add an entry | [`architecture/adding-entries.md`](./architecture/adding-entries.md), [`product/principles.md`](./product/principles.md), [`architecture/naming.md`](./architecture/naming.md) |
+| Add an entry | [`product/principles.md`](./product/principles.md), [`architecture/naming.md`](./architecture/naming.md); an agent working on a plugin follows [`.ai/adding-entries.md`](../.ai/adding-entries.md) |
 | Update the map after a game patch | [`architecture/patch-day.md`](./architecture/patch-day.md) |
 | Start an entry from externally maintained data | [`architecture/import.md`](./architecture/import.md) |
 | Understand the file format | [game map format v2](https://github.com/AngelicaProject/angelica/blob/main/docs/formats/game-map-v2.md) |
