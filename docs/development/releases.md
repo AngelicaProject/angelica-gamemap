@@ -16,6 +16,6 @@ A map version is `<year>.<month>.<number>` without leading zeros, such as `2026.
    git push origin v2026.10.1
    ```
 
-3. `.github/workflows/release.yml` builds the `angelica` tool from the angelica repository's `main`, packs the map with `angelica release map` into `map.pack`, signed with the release key (the repository secret `ANGELICA_RELEASE_SIGNING_KEY`; its public half is the repository variable `ANGELICA_RELEASE_PUBLIC_KEY`), writes the `map.json` feed, and publishes the release marked *latest*.
+3. `.github/workflows/release.yml` builds the `angelica` tool at the commit `tool.toml` pins, the one CI checked the map with, packs the map with `angelica release map` into `map.pack`, signed with the release key (the repository secret `ANGELICA_RELEASE_SIGNING_KEY`; its public half is the repository variable `ANGELICA_RELEASE_PUBLIC_KEY`), writes the `map.json` feed, and publishes the release marked *latest*.
 
 Installed Angelica reads the feed 20 seconds after the game starts and every hour and installs a newer map at once. A published version is never re-tagged; fix problems with the next version.
