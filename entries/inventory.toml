@@ -14,6 +14,11 @@ doc = "The container of an inventory type, or zero: finds the type among the 84 
 of = "inventory.inventory_manager"
 type = "ptr"
 locator = { in = "inventory.inventory_manager.get_inventory_container", signature = "48 8B 97 ?? ?? ?? ?? 48 85 D2", operand = "disp" }
+# 84 containers (cmp ax, 54h) of 32 bytes (shl rcx, 5).
+checks = [
+    { contains = "66 83 F8 54 72", in = "inventory.inventory_manager.get_inventory_container" },
+    { contains = "48 C1 E1 05 48 83 7C 11 08 00 48 8D 04 11", in = "inventory.inventory_manager.get_inventory_container" },
+]
 doc = "The containers: an array of 84 containers of 32 bytes each."
 
 [vtable."inventory.inventory_container"]
@@ -32,6 +37,8 @@ doc = "A slot of the container by position, or zero past its size; the items are
 of = "inventory.inventory_container"
 type = "ptr"
 locator = { in = "inventory.inventory_container.get_inventory_slot", signature = "4C 8B 41 ??", operand = "disp" }
+# Slots of 72 bytes: the index times 9, scaled by 8.
+checks = [{ contains = "48 8D 0C C0 41 80 7C C8 ?? 00 49 8D 1C C8", in = "inventory.inventory_container.get_inventory_slot" }]
 doc = "The container's slots."
 
 [field."inventory.inventory_container.kind"]
@@ -110,12 +117,16 @@ doc = "The item whose look the item has: a row of the Item sheet; zero without a
 of = "inventory.inventory_item"
 type = "struct"
 locator = { in = "inventory.inventory_item.copy", signature = "F2 0F 10 47 ?? F2 0F 11 46", operand = "disp" }
+# Five slots of 2 bytes: 8 bytes and 2 bytes copied together.
+checks = [{ contains = "F2 0F 10 47 28 F2 0F 11 46 28 0F B7 47 30 66 89 46 30", in = "inventory.inventory_item.copy" }]
 doc = "The materia melded into the item: five slots of 2 bytes."
 
 [field."inventory.inventory_item.materia_grades"]
 of = "inventory.inventory_item"
 type = "struct"
 locator = { in = "inventory.inventory_item.copy", signature = "8B 47 ?? 89 46 ?? 0F B6 47", operand = "disp" }
+# Five slots of 1 byte: 4 bytes and 1 byte copied together.
+checks = [{ contains = "8B 47 32 89 46 32 0F B6 47 36 88 46 36", in = "inventory.inventory_item.copy" }]
 doc = "The grades of the melded materia: five slots of 1 byte, in the order of the materia."
 
 [field."inventory.materia_slot.materia"]

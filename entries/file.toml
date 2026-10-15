@@ -2,6 +2,10 @@
 locator = { signature = "40 56 41 56 48 83 EC ?? 0F BE 02 4C 8B F2 48 8B F1 3C 09 0F 8C" }
 abi = { args = ["ptr", "ptr", "i32", "u8"], ret = "u8" }
 thread = "any"
+# The mode byte is at +0: below 9 a disk read, then the cases 9, 10, and 11.
+checks = [
+    { contains = "0F BE 02 4C 8B F2 48 8B F1 3C 09 0F 8C ?? ?? ?? ?? 44 8B D0 41 83 EA 09 0F 84 ?? ?? ?? ?? 41 83 EA 01 0F 84 ?? ?? ?? ?? 41 83 EA 01 74" },
+]
 doc = "Runs one file job of a file thread by the descriptor's mode: modes below 9 read a file on disk named by the descriptor's path, 11 reads the resource's file from an archive."
 
 [field."file.descriptor.mode"]
@@ -57,7 +61,18 @@ doc = "The resource's game path, a std::string: 16 bytes of inline text or a poi
 locator = { signature = "40 53 55 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B D9 45 33 FF 48 8B 89 ?? ?? ?? ?? 45 0F B6 E0 4C 8B F2" }
 abi = { args = ["ptr", "ptr", "u8"], ret = "u8" }
 thread = "any"
-checks = [{ vtable_slot = 32, code_slots = 33 }]
+# The detail level from flag bit 0 and the settings, 2 for 0xFF; the game path as a
+# std::string at +0x48 with its capacity at +0x60; the refusal with 0xF1; flag bit 1
+# for the categories 1 and 2; flag bits 2, 3, 4 for the letter d, n, s before the
+# extension.
+checks = [
+    { vtable_slot = 32, code_slots = 33 },
+    { contains = "40 84 AB 04 01 00 00 74 ?? 48 8B 05 ?? ?? ?? ?? 48 8B CB 0F B6 50 0E 48 8B 03 80 FA FF 75 ?? 41 BF 02 00 00 00" },
+    { contains = "48 83 7B 60 10 48 8D 4B 48 72 03 48 8B 09" },
+    { contains = "B0 F1 48 8B BC 24 90 00 00 00 48 81 C4 98 00 00 00" },
+    { contains = "FF C8 83 F8 01 77 ?? 80 8B ?? ?? ?? ?? 02" },
+    { contains = "80 3C 11 2E 74 ?? FF C8 48 83 E9 01 79 ?? EB ?? 44 8D 48 FF 49 63 C1 0F B6 0C 10 80 F9 64 75 ?? 80 8B ?? ?? ?? ?? 04 40 0F B6 C5 EB ?? 80 F9 6E 75 ?? 80 8B ?? ?? ?? ?? 08 40 0F B6 C5 EB ?? 80 F9 73 75 ?? 80 8B ?? ?? ?? ?? 10" },
+]
 doc = "Loads a texture resource from a finished file job. A disk job's texture is taken from the game's protected file list, and the load fails with 0xF1 when the file is not on it, before the handle's category flags are set."
 
 [function."file.texture_handle.load_unpacked"]

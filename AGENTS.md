@@ -38,6 +38,7 @@ Then load the documentation for the task:
 - An element is named in `windows/` when a plugin needs it, after it was seen in the game to be what its `doc` says, and `angelica map verify` reports its window as known.
 - Never guess an address, offset, or signature. An entry that cannot be verified stays absent.
 - Prefer locators anchored in code over constant offsets.
+- An array of the object model with a fixed `length` or a `stride` other than that of pointers is confirmed by its field's entry: an entry located in code has `contains` checks on the game's code that walks or copies the array with those numbers; an entry with a constant offset is confirmed with its elements in the game.
 - Imported data keeps its `origin`, and its license notice stays in `THIRD_PARTY_NOTICES.md`.
 - Never commit a game executable or any other game file.
 - Correctness-sensitive boundaries: locators, checks, ABI declarations, thread declarations, and renames of entries that published plugins use.
