@@ -40,7 +40,11 @@ def main() -> int:
     except KeyboardInterrupt:
         pass
     finally:
-        launcher.stop()
+        # Ctrl+C may have stopped the JVM first, and the server with it.
+        try:
+            launcher.stop()
+        except Exception:
+            pass
     return 0
 
 
