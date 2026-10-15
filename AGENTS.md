@@ -20,6 +20,7 @@ Then load the documentation for the task:
 - Rules every entry follows: `docs/product/principles.md`
 - Repository layout and how data flows to players: `docs/architecture/overview.md`
 - Naming entries: `docs/architecture/naming.md`
+- Adding what a plugin needs, as its author or their agent: `docs/architecture/adding-entries.md`
 - Updating the map after a game patch: `docs/architecture/patch-day.md`
 - Using externally maintained data: `docs/architecture/import.md`
 - Contribution workflow: `docs/development/README.md`
