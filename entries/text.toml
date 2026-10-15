@@ -2,6 +2,11 @@
 locator = { signature = "40 53 57 41 54 41 55 41 57 48 83 EC 20 45 0F B6 E9 44 0F B6 E2 48 8B F9 41 B2 01" }
 abi = { args = ["ptr", "u8", "u8", "u8", "ptr"], ret = "ptr" }
 thread = "any"
+# The exclusion records are 16 bytes, the length at +8, and a zero length ends the list.
+checks = [
+    { contains = "41 8B 46 08 33 DB 85 C0 74 ?? 49 8B CE" },
+    { contains = "48 FF C3 48 8B CB 48 C1 E1 04 49 03 CE 8B 41 08 85 C0 75" },
+]
 doc = "Converts a string to upper case: its first letter, the first letter of every word, or all of it, skipping listed words."
 
 [function."text.utf8_string.to_lower"]
@@ -38,10 +43,17 @@ doc = "The word's length in bytes; zero ends the list."
 locator = { signature = "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 20 48 8D 41 ?? 66 C7 41 ?? 01 01 48 89 01 49 8B D8" }
 abi = { args = ["ptr", "ptr", "u64"], ret = "ptr" }
 thread = "any"
+# The inline buffer starts at +0x22 with flags at +0x20 and holds 0x40 bytes: the string ends at 0x62.
+checks = [
+    { contains = "48 8D 41 22 66 C7 41 20 01 01" },
+    { contains = "48 C7 41 08 40 00 00 00" },
+]
 doc = "Constructs a Utf8String in uninitialized memory from bytes and their length; it uses the first 0x62 bytes of the memory and allocates when the text does not fit its 64-byte inline buffer."
 
 [function."text.utf8_string.dtor"]
 locator = { signature = "80 79 ?? 00 75 ?? 48 8B 51 08 41 B8 ?? ?? ?? ?? 48 8B 09 E9" }
 abi = { args = ["ptr"], ret = "void" }
 thread = "any"
+# The destructor frees only when the inline flag at +0x21 is clear.
+checks = [{ contains = "80 79 21 00 75 ?? 48 8B 51 08 41 B8 33 00 00 00 48 8B 09" }]
 doc = "Frees what a Utf8String allocated."

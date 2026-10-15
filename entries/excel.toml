@@ -33,6 +33,8 @@ doc = "The vtable slot of the function that frees a row buffer: (environment, bu
 locator = { signature = "40 53 48 83 EC ?? 48 C7 01 01 00 00 00 48 8B D9 4C 89 49 ?? 66 41 83 B9 ?? ?? ?? ?? 02" }
 abi = { args = ["ptr", "ptr", "u32", "ptr", "ptr", "u32"], ret = "ptr" }
 thread = "any"
+# Sheets of version 2 and earlier take the old parser; every later version the version 3 parser.
+checks = [{ contains = "66 41 83 B9 ?? ?? ?? ?? 02 77" }]
 doc = "Constructs a row from parsed page data and its owning sheet."
 
 [function."excel.row.parse_v3"]
@@ -45,6 +47,8 @@ doc = "Builds the owned row buffer of a version-three sheet."
 locator = { signature = "4C 8B 41 ?? 48 63 C2 48 8D 0C 40 41 0F B7 44 48 02 48 8D 0C 40 41 0F B7 44 48 04 C3" }
 abi = { args = ["ptr", "i32"], ret = "u16" }
 thread = "any"
+# Column definition records are 6 bytes: the index times 3, scaled by 2.
+checks = [{ contains = "48 63 C2 48 8D 0C 40 41 0F B7 44 48" }]
 doc = "Returns the fixed-data offset of a logical column."
 
 [function."excel.sheet.name"]
