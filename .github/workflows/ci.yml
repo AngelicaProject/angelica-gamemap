@@ -1,0 +1,72 @@
+name: CI
+
+# docs/development/ci.md describes what each job guarantees.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# A new push to a pull request supersedes its running checks. Runs on main
+# are never cancelled.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # The map and its build records, checked by the angelica tool at the
+  # commit tool.toml pins. CI has no game executable.
+  map:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - name: Read the pinned angelica commit
+        id: tool
+        run: |
+          commit=$(sed -n 's/^angelica = "\([0-9a-f]\{40\}\)"$/\1/p' tool.toml)
+          if [ -z "$commit" ]; then
+            echo "::error::tool.toml does not pin an angelica commit"
+            exit 1
+          fi
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+          repository: AngelicaProject/angelica
+          ref: ${{ steps.tool.outputs.commit }}
+          path: angelica-tool
+      - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master
+        with:
+          toolchain: 1.98.1
+      - name: Build the angelica tool
+        working-directory: angelica-tool
+        run: cargo build --release --locked -p angelica-cli
+      - name: Check the map
+        run: angelica-tool/target/release/angelica.exe map check --map .
+
+  # Workflows: actionlint (with shellcheck) and zizmor, as in angelica.
+  workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: taiki-e/install-action@861a07ce7084f55488e375df125cdc99bba60eb7 # v2.87.23
+        with:
+          tool: zizmor@1.30.1
+      - name: Lint workflows
+        run: |
+          curl --fail --silent --show-error --location --output actionlint.tar.gz \
+            https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz
+          echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  actionlint.tar.gz" | sha256sum --check
+          tar --extract --gzip --file actionlint.tar.gz actionlint
+          ./actionlint
+          zizmor --format github .github/workflows

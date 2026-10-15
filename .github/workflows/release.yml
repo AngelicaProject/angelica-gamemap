@@ -1,7 +1,7 @@
 name: Release
 
 # A map release is a tag v<year>.<month>.<number> on main. The angelica
-# tool packs the map into map.pack, signed with the release key, and writes
+# tool at the commit tool.toml pins packs the map into map.pack, signed with the release key, and writes
 # the map.json feed that installed Angelica reads
 # (docs/development/releases.md).
 on:
@@ -27,11 +27,20 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+      - name: Read the pinned angelica commit
+        id: tool
+        run: |
+          commit=$(sed -n 's/^angelica = "\([0-9a-f]\{40\}\)"$/\1/p' tool.toml)
+          if [ -z "$commit" ]; then
+            echo "::error::tool.toml does not pin an angelica commit"
+            exit 1
+          fi
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           persist-credentials: false
           repository: AngelicaProject/angelica
-          ref: main
+          ref: ${{ steps.tool.outputs.commit }}
           path: angelica-tool
       - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master
         with:
