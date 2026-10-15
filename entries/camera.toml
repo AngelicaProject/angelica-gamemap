@@ -4,6 +4,18 @@ type = "struct"
 doc = "The game's controls; their first part is the camera manager."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 
+[function."camera.camera.set_distance"]
+locator = { signature = "F3 0F 11 4C 24 10 4C 8B C9" }
+abi = { args = ["ptr", "f32", "u32"], ret = "void" }
+thread = "any"
+doc = "Sets how far a camera is from the character, kept between its closest and farthest zoom; in mode 3 it sets the distance the camera moves to instead."
+
+[function."camera.camera.set_direction_h"]
+locator = { signature = "40 53 48 83 EC 20 0F 2F 0D ?? ?? ?? ??" }
+abi = { args = ["ptr", "f32"], ret = "void" }
+thread = "any"
+doc = "Sets where a camera faces, in radians; an angle out of the game's range, or not a number, faces it north first."
+
 [field."camera.camera_manager.camera"]
 of = "camera.camera_manager"
 type = "ptr"
@@ -14,23 +26,20 @@ origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18f
 [field."camera.camera.distance"]
 of = "camera.camera"
 type = "f32"
-offset = 0x124
-doc = "How far the camera is from the character, in yalms. From FFXIVClientStructs; to be read in the running game."
-origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+locator = { in = "camera.camera.set_distance", signature = "41 89 81 ?? ?? ?? ??", operand = "disp" }
+doc = "How far the camera is from the character, in yalms."
 
 [field."camera.camera.min_distance"]
 of = "camera.camera"
 type = "f32"
-offset = 0x128
-doc = "The closest the player can zoom in, in yalms. From FFXIVClientStructs; to be read in the running game."
-origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+locator = { in = "camera.camera.set_distance", signature = "48 8D 91 ?? ?? ?? ??", operand = "disp" }
+doc = "The closest the player can zoom in, in yalms."
 
 [field."camera.camera.max_distance"]
 of = "camera.camera"
 type = "f32"
-offset = 0x12C
-doc = "The farthest the player can zoom out, in yalms. From FFXIVClientStructs; to be read in the running game."
-origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+locator = { in = "camera.camera.set_distance", signature = "4C 8D 91 ?? ?? ?? ??", operand = "disp" }
+doc = "The farthest the player can zoom out, in yalms."
 
 [field."camera.camera.fov"]
 of = "camera.camera"
@@ -42,9 +51,8 @@ origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18f
 [field."camera.camera.direction_h"]
 of = "camera.camera"
 type = "f32"
-offset = 0x140
-doc = "Where the camera faces: 0 is north, growing clockwise, in radians. From FFXIVClientStructs; to be read in the running game."
-origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+locator = { in = "camera.camera.set_direction_h", signature = "F3 0F 11 83 ?? ?? ?? ??", operand = "disp" }
+doc = "Where the camera faces: 0 is north, growing clockwise, in radians."
 
 [field."camera.camera.direction_v"]
 of = "camera.camera"
