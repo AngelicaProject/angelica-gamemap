@@ -8,7 +8,7 @@ Read `AGENTS.md` first: its always-on rules decide what may be added at all. Nam
 
 1. Make sure it is really missing. `angelica schema search <words> --map <map>` lists roots, types, fields, events, actions, and domains; `angelica schema show <name> --map <map>` shows one. Map work takes hours; a near miss in the schema takes minutes.
 1. Tell the user in one message what is missing, that you can add it to the map, and what that involves: turning on dev mode in their Angelica, reading the running game while they play, and in the end a pull request to this repository. Wait for their agreement. Without it, write an API request instead (the angelica repository's `docs/plugins/api-requests.md`).
-1. A new domain, or new words for a domain, needs the maintainer's approval; an action (`act`) gets the strictest review. Say so to the user when the piece needs one of them.
+1. Decide its domain now (section 5): whether an existing domain covers it, whether it needs a new domain or new words, or whether it can never be offered. Tell the user which, because a new domain or new words wait for the maintainer's approval before the map is released, and an action (`act`) gets the strictest review.
 
 ## 1. Tools
 
@@ -106,14 +106,35 @@ Ask the user to act only for the seconds a command runs, and say exactly what to
 - With ReVa: decompile, list callers (`get-callers-decompiled`), references, vtables, and strings. Check every number you write down against the instructions themselves: the offset an instruction reads, the size of an array the code walks, the arguments a call passes.
 - FFXIVClientStructs may tell you where to look. Never copy from it without checking in the code and the game; an entry taken from it keeps its `origin` (`docs/architecture/import.md`).
 
-## 5. Write the entry
+## 5. Choose the domain
 
-1. Put a function, location, global, or vtable in the area's file in `entries/`, a field's entry beside them, and the object model's part in `types/`, `roots.toml`, `events.toml`, `actions.toml`, or `enums/`.
+Every field, event argument, and action belongs to a domain, and the domain is what the player approves, in the domain's own words: a plugin lists it in its manifest's `[lens] read`, `[lens] act`, or `[lens] change`, and the player sees the domain's `read`, `act`, or `change` words. The words promise the player what a plugin can do with that permission, so choosing a domain is choosing what the player is told. The format of `domains.toml` is the angelica repository's `docs/formats/game-map-v2.md` (Domains); how the player sees them is its `docs/architecture/permissions.md`.
+
+1. Read the domains: `domains.toml`, or `angelica schema search <words> --map .` and `angelica schema show <domain> --map .`, with their `doc`, `class`, and words.
+1. Pick the domain whose words already say it. Read the words as a player who approved them: a player who allowed "Sees the items you carry" expects a plugin to know their bags' items and quantities, not their retainers' or their gil history. If that player would be surprised, the domain does not cover it. What it covers depends on the operation:
+   - reading a field or receiving an event: its `read` words;
+   - an action: its `act` words; a domain without `act` has no actions;
+   - a field plugins may `set`, or an outcome at a decision point: its `change` words; a domain without `change` has nothing plugins change.
+1. Check the class. `you` is about the player alone; `display` changes only what the player sees; `others` shows anything about other players, their names, messages, or characters. Data about other players never goes into a `you` domain. The host grants only these three classes: a domain of another class, such as acting toward other players, is never granted, so do not propose one for a plugin.
+1. When an existing domain covers it, put the field, argument, or action in that domain (a type's `domain`, or the field's own). That needs no approval: fields join a domain under the words it already has.
+1. When no domain covers it, do not stretch one. Propose a new domain in `domains.toml`, narrow, for what this kind of plugin needs, not everything near it:
+   - its name is what a player would call the data, as `docs/architecture/naming.md` says (`retainers`, `armoury`);
+   - `doc` says what it holds;
+   - `class` is the one the data reaches, as above;
+   - `read` is one plain line in English and Russian, in the form of the others ("Sees …" / "Видит …"), saying everything a plugin with it can read;
+   - `act` or `change` only when the plugin needs to act or change in it, in the same form ("Uses …", "Changes …").
+1. When a domain covers the reading but lacks the `act` or `change` words the operation needs, adding those words is new wording: propose them the same way.
+1. A new domain or new words wait for the maintainer's approval; say so in the pull request, with the proposed words quoted, and tell the user. Meanwhile the plugin works on this computer: the local map describes the domain, so Angelica shows it to the user for approval.
+1. Some data has no domain and never will: anything that could take over or compromise the account, such as session tokens or login data. Do not add it, or mark the field `forbidden = true` when the type needs it described; tell the user the plugin cannot have it, and design around it.
+
+## 6. Write the entry
+
+1. Put a function, location, global, or vtable in the area's file in `entries/`, a field's entry beside them, and the object model's part in `types/`, `roots.toml`, `events.toml`, `actions.toml`, or `enums/`, in the domain section 5 chose.
 1. Locate it in code, never by a constant you could anchor. `angelica exe signature --game <game folder> --rva <offset>` proposes a unique signature for a function or location. For a field, take the instruction that reads or writes it and run `--within`, adding `--function <start>` when the function is a leaf: the signature is then unique inside that function and leaves out the displacement, which the `in` locator reads (`{ in = "<function entry>", signature = "...", operand = "disp" }`).
 1. A function entry's `abi` and `thread` are what the disassembly shows: the registers it reads for arguments and what it returns. Declare `void` when nothing reads the return value, and `thread = "any"` unless you have seen it run only on the main thread.
 1. An entry found by your own work has no `origin`. When it replaces one that had an `origin`, remove it and any sentence saying the value was still to be checked.
 
-## 6. Verify and try
+## 7. Verify and try
 
 1. `angelica map verify --map . --game <game folder> --write` resolves every entry against the user's executable and writes the build record. Every entry you added is present. When an entry in code replaced a constant offset, the offset it derives equals the constant, and the record confirms one constant offset less.
 1. `angelica map check --map .` must pass, as CI runs it.
@@ -121,7 +142,7 @@ Ask the user to act only for the seconds a command runs, and say exactly what to
 1. `angelica look "<query>"` reads what you added. Check with the user that it holds what its `doc` says, in the game. An entry that hooks use, such as an event, takes effect at the next start of the game.
 1. Run the plugin against it, in the game. It works on this computer now.
 
-## 7. Send it
+## 8. Send it
 
 1. Branch, commit, and open a pull request as `.ai/git.md` and `.ai/pull-requests.md` say: the entries, the types, and the regenerated build record; never the executable or anything taken from it. Say which plugin needs it and how you checked it in the game, with the commands you ran.
 1. Tell the user it is sent, and what is left: the review, and the maintainer's approval when a domain or an action is involved.
