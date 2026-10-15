@@ -20,7 +20,7 @@ Never commit the game's executable or anything taken from it but the entry itsel
 1. Create a project, import `ffxiv_dx11.exe` from the game's `game` folder, and let the analysis finish. It takes about 20 minutes on the first import. You can also do it without the window, and name the map's entries at the same time (see the next step):
 
    ```text
-   supportnalyzeHeadless.bat <project folder> ffxiv -import "<game folder>fxiv_dx11.exe" -scriptPath <folder with the script> -postScript AngelicaMapLabels.java
+   support\analyzeHeadless.bat <project folder> ffxiv -import "<game folder>\ffxiv_dx11.exe" -scriptPath <folder with the script> -postScript AngelicaMapLabels.java
    ```
 
 1. Name what the map already knows. `angelica map labels --map . --game "<game folder>"` writes `AngelicaMapLabels.java`; run it in Ghidra's **Script Manager** on the program, or with `-postScript` as above. It names every function, location, global, and vtable of the map, so the code reads in the map's names and you see what is already described. It refuses a program of another executable; run it again after the map or the game changes.
