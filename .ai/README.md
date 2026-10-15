@@ -11,6 +11,7 @@ These files are procedural guidance for coding tools. They are not the source of
 - [`pull-requests.md`](./pull-requests.md) — pull request titles, descriptions, readiness, and updates.
 - [`code-review.md`](./code-review.md) — review order, severity, and verdict rules.
 - [`ci.md`](./ci.md) — local checks, GitHub Actions failures, and CI verification.
+- [`adding-entries.md`](./adding-entries.md) — for an agent working on a plugin: adding what the map lacks, the tools to install for it and when, finding it in the game and the code, trying it, and sending it.
 
 Documentation work also loads [`docs/AGENTS.md`](../docs/AGENTS.md).
 
