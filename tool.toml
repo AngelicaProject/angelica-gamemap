@@ -1,3 +1,3 @@
 # The angelica commit whose `angelica map verify` produces the build records,
 # and whose tool checks the map in CI and packs it for a release.
-angelica = "0f637a82dfeb063f83630887f7963d723236dc96"
+angelica = "4bddcc594164ee94e5bc215e7e5dabeb3a437cba"
