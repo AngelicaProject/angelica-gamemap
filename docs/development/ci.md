@@ -4,11 +4,16 @@ CI has no game executable: the executable is never committed or downloaded by a 
 
 ## Gates
 
-- The map parses with the pinned `angelica` tool, and every entry follows the format and the naming rules.
-- Every entry named in a build record exists, and every entry has a result in the build record of each supported game version.
-- The `entries_sha256` of every build record equals the hash of the current map, so no entry changed without a new record.
-- `THIRD_PARTY_NOTICES.md` exists when any entry has an `origin`.
-- Workflows pass `actionlint` and `zizmor`, with the workflow rules of the `angelica` repository.
+`.github/workflows/ci.yml` runs on every pull request and every push to `main`.
+
+- `map`: builds the `angelica` tool at the commit `tool.toml` pins and runs `angelica map check --map .`. It checks that:
+  - the map loads: every file follows the format, every entry name has the form of [naming](../architecture/naming.md) and the area of its file, and every reference names an entry;
+  - every file in `builds/` is a build record named `<game version>.toml`, whose `entries_sha256` equals the hash of the current map, so no entry changed without a new record;
+  - every record gives every entry exactly one result, present or absent, names no other entry, and confirms constant offsets only for present fields that have one;
+  - `THIRD_PARTY_NOTICES.md` exists when any entry has an `origin`.
+
+  Whether the recorded addresses are right for the executable is checked by `angelica map verify` on a maintainer's machine, and the rest of the naming rules in review.
+- `workflows`: `actionlint` (with shellcheck) and `zizmor`, with the workflow rules of the `angelica` repository.
 
 ## Failure handling
 
