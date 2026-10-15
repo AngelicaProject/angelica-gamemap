@@ -33,6 +33,25 @@ Never commit the game's executable or anything taken from it but the entry itsel
 
    ReVa listens on port 8080 of this computer while Ghidra runs. Keep it on `localhost`: its tools include a scripting environment.
 
+### Without Ghidra's window
+
+ReVa can serve the analyzed project with no window and no plugin to turn on. Make a Python environment with the PyGhidra that Ghidra ships (`pip install --no-index --find-links <Ghidra>\Ghidra\Features\PyGhidra\pypkg\dist pyghidra`), copy ReVa's `reverse-engineering-assistant` folder into `<Ghidra>\Ghidra\Extensions`, and run:
+
+```python
+import pyghidra
+pyghidra.start(install_dir=r"<Ghidra>")
+from java.io import File
+from reva.headless import RevaHeadlessLauncher
+
+launcher = RevaHeadlessLauncher(None, True, False, File(r"<project folder>"), "ffxiv")
+launcher.start()
+launcher.waitForServer(60000)
+input("ReVa serves the project on port 8080; press Enter to stop")
+launcher.stop()
+```
+
+The agent connects to the same address as above. If you start it from an app that virtualizes `AppData`, such as Claude Desktop, set `APPDATA` to a folder outside `AppData` for that process, or Ghidra fails to start its script framework.
+
 ## Turn on dev mode
 
 Dev mode lets `angelica look` read the running game and lets Angelica use a map you are working on instead of the released one. It gives plugins nothing more. Turn it on in Angelica under **Settings > For developers**, or:
