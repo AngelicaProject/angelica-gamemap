@@ -43,7 +43,7 @@ Start from what the map already has. `angelica schema search <words> --map .` li
 
 - `angelica look --dump 512 "<path>" --installation <installation> --json > before.json`, then do the thing in the game, dump again into `after.json`, and run `angelica look --compare before.json after.json`: the bytes that changed are where the value lives.
 - `--follow <offset>` follows a pointer the map does not describe yet, from the object the path reaches: `--dump 256 --follow 0x1A8 "player"`.
-- `--writes <offset> --size <bytes> "<path>"` lists the instructions that write a field while you play, by their offset in the executable. Open that offset in the disassembler: the instruction just before it wrote the field. This finds both the code that changes a value and an anchor for the field's offset.
+- `--writes <offset> --size <bytes> --seconds 45 "<path>"` lists the instructions that write a field while you play, by where each one ended: its offset in the executable and its address in a disassembler. The instruction that ends exactly there wrote the field. Do the thing in the game during those seconds; a field written every frame shows up without it. This finds both the code that changes a value and an anchor for the field's offset.
 - `--trace <entry>` counts how often the game reaches a function of the map, to find the one an action of yours calls.
 
 All of these run against the game on your computer only.
@@ -53,14 +53,15 @@ All of these run against the game on your computer only.
 Ask your agent to read the function in Ghidra (through ReVa) or IDA, and to check every number against the code: the offset an instruction reads, the size of an array the code walks, the arguments a call passes. Then turn what it found into an entry:
 
 1. Write the entry in the area's file in `entries/`, and the type, field, event, or action in the object model, as [naming](./naming.md) and the format describe.
-1. Locate it in code, not by a constant: `angelica exe signature --game <game folder> --rva <offset>` proposes a signature for a function or location, and `--within` one for an `in` locator that reads a field's offset. `angelica exe find` shows every match of a signature.
+1. Locate it in code, not by a constant: `angelica exe signature --game <game folder> --rva <offset>` proposes a signature for a function or location, and `--within` one for an `in` locator that reads a field's offset. A small function that calls nothing often has no entry in the exception directory; then give its start too, `--within --function <start>`. Its start is the first instruction after the `CC` bytes that pad the function before it. `angelica exe find` shows every match of a signature.
+1. An entry found by your own work in the game's code has no `origin`; when it replaces one taken from elsewhere, remove the `origin` and the sentence that the value was to be checked.
 1. Verify the map against your game:
 
    ```text
    angelica map verify --map . --game "<game folder>" --write
    ```
 
-   Every entry you added must be present.
+   Every entry you added must be present. When an entry now in code replaced a constant offset, the offset it derives must equal the constant, and the record confirms one constant offset less.
 1. Try it in the game:
 
    ```text
