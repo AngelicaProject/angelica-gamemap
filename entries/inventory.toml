@@ -1,0 +1,131 @@
+[global."inventory.inventory_manager.instance"]
+locator = { signature = "48 8D 0D ?? ?? ?? ?? 81 C2", at = 3, follow = "rel32" }
+type = "struct"
+doc = "The inventory manager: every container of the player's items."
+origin = { source = "FFXIVClientStructs", commit = "994319b521c85e445e8907474b3a905cc05187c3" }
+
+[function."inventory.inventory_manager.get_inventory_container"]
+locator = { signature = "48 89 5C 24 08 57 48 83 EC 20 8B DA 48 8B F9 E8 ?? ?? ?? ?? 84 C0 74 ?? E8 ?? ?? ?? ?? 8B D3" }
+abi = { args = ["ptr", "u32"], ret = "ptr" }
+thread = "main"
+doc = "The container of an inventory type, or zero: finds the type among the 84 containers' types, then checks that the container has items."
+
+[field."inventory.inventory_manager.inventories"]
+of = "inventory.inventory_manager"
+type = "ptr"
+locator = { in = "inventory.inventory_manager.get_inventory_container", signature = "48 8B 97 ?? ?? ?? ?? 48 85 D2", operand = "disp" }
+doc = "The containers: an array of 84 containers of 32 bytes each."
+
+[vtable."inventory.inventory_container"]
+locator = { signature = "4C 8D 05 ?? ?? ?? ?? ?? ?? ?? 8B CD 48 8B C2", at = 3, follow = "rel32" }
+slots = 6
+doc = "An inventory container's virtual functions."
+origin = { source = "FFXIVClientStructs", commit = "994319b521c85e445e8907474b3a905cc05187c3" }
+
+[function."inventory.inventory_container.get_inventory_slot"]
+locator = { vtable = "inventory.inventory_container", slot = 5 }
+abi = { args = ["ptr", "i32"], ret = "ptr" }
+thread = "any"
+doc = "A slot of the container by position, or zero past its size; the items are 72 bytes each."
+
+[field."inventory.inventory_container.items"]
+of = "inventory.inventory_container"
+type = "ptr"
+locator = { in = "inventory.inventory_container.get_inventory_slot", signature = "4C 8B 41 ??", operand = "disp" }
+doc = "The container's slots."
+
+[field."inventory.inventory_container.kind"]
+of = "inventory.inventory_container"
+type = "u32"
+locator = { in = "inventory.inventory_container.get_inventory_slot", signature = "81 79 ?? DA 07 00 00", operand = "disp" }
+doc = "The container's inventory type."
+
+[field."inventory.inventory_container.size"]
+of = "inventory.inventory_container"
+type = "u32"
+locator = { in = "inventory.inventory_container.get_inventory_slot", signature = "3B 51 ??", operand = "disp" }
+doc = "The container's number of slots."
+
+[vtable."inventory.inventory_item"]
+locator = { signature = "66 89 51 0C 48 8D 05", at = 7, follow = "rel32" }
+slots = 25
+doc = "An inventory item's virtual functions."
+origin = { source = "FFXIVClientStructs", commit = "994319b521c85e445e8907474b3a905cc05187c3" }
+
+[function."inventory.inventory_item.copy"]
+locator = { vtable = "inventory.inventory_item", slot = 1 }
+abi = { args = ["ptr", "ptr"], ret = "void" }
+thread = "any"
+doc = "Copies another item into this one, field by field."
+
+[function."inventory.inventory_item.get_base_item_id"]
+locator = { vtable = "inventory.inventory_item", slot = 5 }
+abi = { args = ["ptr"], ret = "u32" }
+thread = "any"
+doc = "The item without its quality; for a slot that links to another, the linked slot's item."
+
+[field."inventory.inventory_item.symbolic"]
+of = "inventory.inventory_item"
+type = "bool"
+locator = { in = "inventory.inventory_item.get_base_item_id", signature = "80 79 ?? 00 48 8B D9", operand = "disp" }
+doc = "Whether the slot links to a slot of another container instead of holding an item."
+
+[field."inventory.inventory_item.item_id"]
+of = "inventory.inventory_item"
+type = "u32"
+locator = { in = "inventory.inventory_item.get_base_item_id", signature = "8B 41 ?? 48 83 C4 20", operand = "disp" }
+doc = "The item: a row of the Item sheet; zero in an empty slot."
+
+[field."inventory.inventory_item.quantity"]
+of = "inventory.inventory_item"
+type = "u32"
+locator = { in = "inventory.inventory_item.copy", signature = "89 46 ?? E8 ?? ?? ?? ?? 48 89 46", operand = "disp" }
+doc = "How many of the item the slot holds."
+
+[field."inventory.inventory_item.spiritbond"]
+of = "inventory.inventory_item"
+type = "u16"
+locator = { in = "inventory.inventory_item.copy", signature = "66 89 46 ?? E8", operand = "disp" }
+doc = "The spiritbond in hundredths of a percent, or the collectability of a collectable."
+
+[field."inventory.inventory_item.condition"]
+of = "inventory.inventory_item"
+type = "u16"
+locator = { in = "inventory.inventory_item.copy", signature = "66 89 46 ?? 48 8B CF 48 8B 07", operand = "disp" }
+doc = "The condition: 30000 for 100 percent."
+
+[field."inventory.inventory_item.flags"]
+of = "inventory.inventory_item"
+type = "u8"
+locator = { in = "inventory.inventory_item.copy", signature = "88 46 ?? E8 ?? ?? ?? ?? 66 89 46", operand = "disp" }
+doc = "The item's flags: high quality, company crest, relic, collectable."
+
+[field."inventory.inventory_item.glamour_id"]
+of = "inventory.inventory_item"
+type = "u32"
+locator = { in = "inventory.inventory_item.copy", signature = "89 46 ?? 0F B6 47 0E", operand = "disp" }
+doc = "The item whose look the item has: a row of the Item sheet; zero without a glamour."
+
+[field."inventory.inventory_item.materia"]
+of = "inventory.inventory_item"
+type = "struct"
+locator = { in = "inventory.inventory_item.copy", signature = "F2 0F 10 47 ?? F2 0F 11 46", operand = "disp" }
+doc = "The materia melded into the item: five slots of 2 bytes."
+
+[field."inventory.inventory_item.materia_grades"]
+of = "inventory.inventory_item"
+type = "struct"
+locator = { in = "inventory.inventory_item.copy", signature = "8B 47 ?? 89 46 ?? 0F B6 47", operand = "disp" }
+doc = "The grades of the melded materia: five slots of 1 byte, in the order of the materia."
+
+[field."inventory.materia_slot.materia"]
+of = "inventory.materia_slot"
+type = "u16"
+offset = 0x0
+doc = "The materia in the slot: a row of the Materia sheet; zero in an empty slot."
+
+[field."inventory.materia_grade.grade"]
+of = "inventory.materia_grade"
+type = "u8"
+offset = 0x0
+doc = "The grade of the materia in the slot of the same position: an index of the Materia sheet's grades, from 0."

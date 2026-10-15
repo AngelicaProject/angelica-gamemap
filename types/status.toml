@@ -1,0 +1,25 @@
+[types."status.status_manager"]
+doc = "The statuses on a character: buffs, debuffs, food, and others."
+domain = "statuses"
+
+[types."status.status_manager".fields.statuses]
+doc = "The status slots; an empty slot is skipped."
+array = { of = "status.status", length = 60, stride = 16, present = "status_id" }
+
+[types."status.status"]
+doc = "One status on a character."
+domain = "statuses"
+
+[types."status.status".fields.status_id]
+doc = "The status."
+sheet = "Status"
+
+[types."status.status".fields.param]
+doc = "A value that depends on the status: the stack count of a debuff, or the ItemFood row of food and potions."
+
+[types."status.status".fields.remaining_time]
+doc = "How long the status lasts; zero or less for a status without a time limit."
+unit = "s"
+
+[types."status.status".fields.source_id]
+doc = "The entity id of the object that applied the status."

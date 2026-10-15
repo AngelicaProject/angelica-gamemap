@@ -2,7 +2,7 @@
 
 This file is the repository entry point for coding tools. Durable rules live in `docs/`; task-specific execution guidance lives in `.ai/`. Do not duplicate canonical documentation here.
 
-This repository contains data only. The format is owned by the `angelica` repository: <https://github.com/AngelicaProject/angelica/blob/main/docs/formats/game-map-v1.md>. The tools that read and verify the map are the `angelica map` commands from that repository.
+This repository contains data only. The format is owned by the `angelica` repository: <https://github.com/AngelicaProject/angelica/blob/main/docs/formats/game-map-v2.md>. The tools that read and verify the map are the `angelica map` commands from that repository.
 
 ## Context loading
 
@@ -28,7 +28,12 @@ Then load the documentation for the task:
 
 - An entry is added because a plugin or host service needs it, never speculatively.
 - Every change to `entries/` is accompanied by build records regenerated with `angelica map verify` against the current game executable. Never edit `builds/` by hand.
-- A state table field is added when a plugin needs it, is never data that could compromise the account, and keeps its name and meaning across builds; its `doc` names the sheet a number refers to.
+- A type, field, event, or action of the object model (`types/`, `roots.toml`, `events.toml`, `actions.toml`, `enums/`) is added when a plugin needs it, after `angelica look` showed in the running game that it holds what its `doc` says. It is never data that could compromise the account, keeps its name and meaning across builds, and belongs to a domain whose approved wording covers it; a number that identifies game data has its `sheet`.
+- A new domain in `domains.toml`, and any change to a domain's wording or class, including its `act` wording, is approved by the maintainer.
+- A field is marked `set` only when its value exists on the player's computer alone and is never sent to the game's servers, with a range the game itself tolerates.
+- A `set` field's `call` names the function the game itself uses to change that value, its ABI checked in the disassembly; text and bits are changed only that way. `hold` marks a value the game sets again itself, such as what a window shows.
+- An outcome of a decision point returns only a value the function itself returns on a path that does nothing, checked in the disassembly.
+- An action calls only a function the game's own interface calls for the player, with the arguments it passes, under the conditions the player could do it; its rate stays low.
 - A column is named in `sheets/` when a plugin needs it, from the values `angelica excel show` lists, and `angelica map verify` reports its sheet as known.
 - An element is named in `windows/` when a plugin needs it, after it was seen in the game to be what its `doc` says, and `angelica map verify` reports its window as known.
 - Never guess an address, offset, or signature. An entry that cannot be verified stays absent.

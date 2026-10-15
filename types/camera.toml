@@ -1,0 +1,37 @@
+[types."camera.camera_manager"]
+doc = "The game's cameras."
+domain = "camera"
+
+[types."camera.camera_manager".fields.camera]
+doc = "The normal in-game camera."
+ref = "camera.camera"
+
+[types."camera.camera"]
+doc = "A camera: how far it is, how far it may zoom, and where it faces."
+domain = "camera"
+
+[types."camera.camera".fields.distance]
+doc = "How far the camera is from the character."
+unit = "yalms"
+
+[types."camera.camera".fields.min_distance]
+doc = "The closest the player can zoom in; the game's own limit is 1.5."
+unit = "yalms"
+set = { range = [0.5, 20.0] }
+
+[types."camera.camera".fields.max_distance]
+doc = "The farthest the player can zoom out; the game's own limit is 20."
+unit = "yalms"
+set = { range = [1.5, 100.0] }
+
+[types."camera.camera".fields.fov]
+doc = "The camera's field of view."
+unit = "rad"
+
+[types."camera.camera".fields.direction_h]
+doc = "Where the camera faces: 0 is north, growing clockwise."
+unit = "rad"
+
+[types."camera.camera".fields.direction_v]
+doc = "How far the camera looks up (positive) or down (negative)."
+unit = "rad"

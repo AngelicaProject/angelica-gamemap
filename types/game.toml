@@ -1,0 +1,7 @@
+[types."game.game_main"]
+doc = "The game's main state: zones and transitions between them."
+domain = "location"
+
+[types."game.game_main".fields.current_territory_type]
+doc = "The zone the player is in; zero during loading screens."
+sheet = "TerritoryType"

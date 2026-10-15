@@ -1,0 +1,106 @@
+# Actions: functions of the game a plugin calls for the player through Lens,
+# as the game's own interface calls them.
+
+[actions.use_action]
+doc = "Uses an action as a hotbar slot does: an ability or spell, an item, a mount, a general action such as Sprint, and the other kinds the action bars hold. The game checks it as for the player's own press and may refuse or queue it."
+call = "action.action_manager.use_action"
+domain = "actions"
+rate = 4
+ok = true
+when = [
+    { path = "player", says = "your character is not in the world" },
+    { path = "activity[between_areas = false]", says = "you are moving between areas" },
+]
+
+[actions.use_action.args.manager]
+arg = 0
+global = "action.action_manager.instance"
+
+[actions.use_action.args.kind]
+arg = 1
+doc = "The kind of action."
+enum = "action.action_type"
+
+[actions.use_action.args.action]
+arg = 2
+doc = "The action's id: a row of the Action sheet for an action, of the Item sheet for an item, of the GeneralAction sheet for a general action, and so on by kind."
+
+[actions.use_action.args.target]
+arg = 3
+doc = "The game object id of the target; the current target or the character itself when left out."
+default = 0xE0000000
+
+[actions.use_action.args.extra]
+arg = 4
+doc = "For an item, its container in the high byte and its slot in the low byte, or 0xFFFF to use it as a hotbar slot does."
+default = 0xFFFF
+
+[actions.use_action.args.mode]
+arg = 5
+value = 0
+
+[actions.use_action.args.combo]
+arg = 6
+value = 0
+
+[actions.use_action.args.area_targeted]
+arg = 7
+value = 0
+
+[actions.teleport]
+doc = "Teleports to an aetheryte the player has attuned to, paying the fee, as the teleport window does."
+call = "teleport.telepo.teleport"
+domain = "teleport"
+rate = 1
+ok = true
+when = [
+    { path = "player", says = "your character is not in the world" },
+    { path = "activity[in_combat = false]", says = "you are in combat" },
+    { path = "activity[between_areas = false and casting = false]", says = "you are busy" },
+]
+
+[actions.teleport.args.manager]
+arg = 0
+global = "teleport.telepo.instance"
+
+[actions.teleport.args.aetheryte]
+arg = 1
+doc = "The aetheryte."
+sheet = "Aetheryte"
+
+[actions.teleport.args.shard]
+arg = 2
+doc = "The index of an aethernet shard within the aetheryte; 0 for the aetheryte itself."
+default = 0
+
+[actions.answer_yes_no]
+doc = "Answers the open yes or no dialog, as clicking Yes or No does."
+call = "ui.unit_base.fire_callback_int"
+domain = "windows"
+rate = 2
+when = [{ path = "windows.unit_manager.windows[name = \"SelectYesno\"]", says = "no yes or no dialog is open" }]
+
+[actions.answer_yes_no.args.window]
+arg = 0
+object = "windows.unit_manager.windows[name = \"SelectYesno\"]"
+
+[actions.answer_yes_no.args.answer]
+arg = 1
+doc = "Yes or no."
+enum = "ui.yes_no"
+
+[actions.choose_entry]
+doc = "Chooses an entry of the open list of choices, such as what to say to someone, as clicking it does."
+call = "ui.unit_base.fire_callback_int"
+domain = "windows"
+rate = 2
+when = [{ path = "windows.unit_manager.windows[name = \"SelectString\"]", says = "no list of choices is open" }]
+
+[actions.choose_entry.args.window]
+arg = 0
+object = "windows.unit_manager.windows[name = \"SelectString\"]"
+
+[actions.choose_entry.args.entry]
+arg = 1
+doc = "The entry's position in the list, from 0."
+range = [0, 63]

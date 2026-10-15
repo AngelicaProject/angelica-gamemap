@@ -1,0 +1,22 @@
+[types."object.game_object"]
+doc = "An object of the game world: a character, a monster, an NPC, or a thing."
+domain = "character"
+
+[types."object.game_object".fields.name]
+doc = "The object's name."
+text = 64
+
+[types."object.game_object".fields.position_x]
+doc = "The position in the zone: east-west."
+unit = "yalms"
+domain = "location"
+
+[types."object.game_object".fields.position_y]
+doc = "The position in the zone: height."
+unit = "yalms"
+domain = "location"
+
+[types."object.game_object".fields.position_z]
+doc = "The position in the zone: north-south."
+unit = "yalms"
+domain = "location"

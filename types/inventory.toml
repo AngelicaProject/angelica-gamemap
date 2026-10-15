@@ -1,0 +1,76 @@
+[types."inventory.inventory_manager"]
+doc = "Every container of items the game keeps for the player: bags, gear, currency, the armoury chest, saddlebags, and the inventory of the retainer the player has open."
+domain = "inventory"
+
+[types."inventory.inventory_manager".fields.containers]
+doc = "The containers. A container belongs to the domain of its kind; one whose kind has no name is never read."
+at = "inventory.inventory_manager.inventories"
+array = { of = "inventory.inventory_container", length = 84, stride = 32, partition = { field = "kind", domains = { armoury = ["armoury_off_hand", "armoury_head", "armoury_body", "armoury_hands", "armoury_waist", "armoury_legs", "armoury_feet", "armoury_ears", "armoury_neck", "armoury_wrists", "armoury_rings", "armoury_soul_crystals", "armoury_main_hand"], saddlebag = ["saddlebag_1", "saddlebag_2", "premium_saddlebag_1", "premium_saddlebag_2"], retainers = ["retainer_page_1", "retainer_page_2", "retainer_page_3", "retainer_page_4", "retainer_page_5", "retainer_page_6", "retainer_page_7", "retainer_equipped", "retainer_gil", "retainer_crystals", "retainer_market"] } } }
+
+[types."inventory.inventory_container"]
+doc = "One container of items: a bag, the equipped gear, the currency, a part of the armoury chest, a saddlebag, or a retainer's page."
+domain = "inventory"
+
+[types."inventory.inventory_container".fields.kind]
+doc = "Which container this is."
+enum = "inventory.container_kind"
+
+[types."inventory.inventory_container".fields.size]
+doc = "How many slots the container has."
+
+[types."inventory.inventory_container".fields.items]
+doc = "The container's slots; an empty slot is skipped."
+array = { of = "inventory.inventory_item", count = "size", most = 200, stride = 72, present = "item" }
+
+[types."inventory.inventory_item"]
+doc = "One slot of a container and the item in it."
+domain = "inventory"
+
+[types."inventory.inventory_item".fields.item]
+doc = "The item."
+at = "inventory.inventory_item.item_id"
+sheet = "Item"
+
+[types."inventory.inventory_item".fields.quantity]
+doc = "How many of the item the slot holds."
+
+[types."inventory.inventory_item".fields.flags]
+doc = "The item's flags."
+flags = "inventory.item_flags"
+
+[types."inventory.inventory_item".fields.condition]
+doc = "The item's condition: 30000 for 100 percent."
+
+[types."inventory.inventory_item".fields.spiritbond]
+doc = "The spiritbond in hundredths of a percent, or the collectability of a collectable."
+
+[types."inventory.inventory_item".fields.glamour]
+doc = "The item whose look the item has; zero without a glamour."
+at = "inventory.inventory_item.glamour_id"
+sheet = "Item"
+
+[types."inventory.inventory_item".fields.symbolic]
+doc = "Whether the slot only links to a slot of another container; its item is then not the slot's own."
+
+[types."inventory.inventory_item".fields.materia]
+doc = "The materia melded into the item, by slot; an empty slot is skipped. The grade of each is in `materia_grades` at the same position."
+array = { of = "inventory.materia_slot", length = 5, stride = 2, present = "materia" }
+
+[types."inventory.inventory_item".fields.materia_grades]
+doc = "The grades of the melded materia, by slot."
+array = { of = "inventory.materia_grade", length = 5, stride = 1 }
+
+[types."inventory.materia_slot"]
+doc = "One materia slot of an item."
+domain = "inventory"
+
+[types."inventory.materia_slot".fields.materia]
+doc = "The materia."
+sheet = "Materia"
+
+[types."inventory.materia_grade"]
+doc = "The grade of one materia slot of an item."
+domain = "inventory"
+
+[types."inventory.materia_grade".fields.grade]
+doc = "The grade, from 0."
