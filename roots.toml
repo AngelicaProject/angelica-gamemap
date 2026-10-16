@@ -2,28 +2,34 @@
 doc = "The player's character; nothing before the player logs in."
 global = "character.local_player"
 type = "character.battle_chara"
+whose = "you"
 
 [roots.game]
 doc = "The game's main state: the zone."
 global = "game.game_main"
 type = "game.game_main"
+whose = "you"
 
 [roots.inventory]
 doc = "The player's items: bags, gear, currency, crystals, the armoury chest, saddlebags, and the open retainer's inventory."
 global = "inventory.inventory_manager.instance"
 type = "inventory.inventory_manager"
+whose = "you"
 
 [roots.activity]
 doc = "What the player's character is doing now."
 global = "character.conditions.instance"
 type = "character.conditions"
+whose = "you"
 
 [roots.camera]
 doc = "The game's cameras."
 global = "camera.control.instance"
 type = "camera.camera_manager"
+whose = "you"
 
 [roots.windows]
 doc = "The game's windows; nothing before the stage exists."
 global = "ui.stage"
 type = "ui.stage"
+whose = "you"
