@@ -3,6 +3,7 @@ doc = "The player asked to use an action: from a hotbar, a menu, a macro, or the
 at = "action.action_manager.use_action"
 domain = "actions"
 rate = 32
+whose = "you"
 
 [events.action_used.args.kind]
 doc = "The kind of action."
@@ -26,6 +27,7 @@ doc = "The game adds a message to the chat log: a player's message, a system mes
 at = "ui.log_module.print_message"
 domain = "chat"
 rate = 64
+whose = "others"
 
 [events.chat_message_added.args.kind]
 doc = "The kind of message: a row of the LogKind sheet, such as 57 for system messages."
@@ -56,6 +58,7 @@ at = "excel.hash_table_page_row_resolver.store_row"
 derived = "sheet_cell"
 domain = "text"
 rules = "text-table-v1"
+whose = "you"
 
 [events.sheet_text.args.sheet]
 doc = "The sheet's name, such as Item."
@@ -92,6 +95,7 @@ doc = "A letter beyond ASCII that the game's conversion to capital letters meets
 at = "text.utf8_string.to_upper"
 derived = "case_letter"
 domain = "text"
+whose = "you"
 
 [events.letter_upper.args.letter]
 doc = "The letter, in UTF-8."
@@ -108,6 +112,7 @@ doc = "A letter beyond ASCII that the game's conversion to small letters meets."
 at = "text.utf8_string.to_lower"
 derived = "case_letter"
 domain = "text"
+whose = "you"
 
 [events.letter_lower.args.letter]
 doc = "The letter, in UTF-8."
