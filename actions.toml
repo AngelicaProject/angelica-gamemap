@@ -104,3 +104,40 @@ object = "windows.unit_manager.windows[name = \"SelectString\"]"
 arg = 1
 doc = "The entry's position in the list, from 0."
 range = [0, 63]
+
+[actions.try_on]
+doc = "Opens the Try On window with an item on the player's character, as Try On in an item's menu does. It changes nothing but what the window shows."
+call = "ui.agent_tryon.try_on"
+domain = "fitting"
+rate = 2
+ok = true
+when = [{ path = "player", says = "your character is not in the world" }]
+
+[actions.try_on.args.opener]
+arg = 0
+value = 0
+
+[actions.try_on.args.item]
+arg = 1
+doc = "The item."
+sheet = "Item"
+
+[actions.try_on.args.dye]
+arg = 2
+doc = "The dye of the item's first channel; none when left out."
+sheet = "Stain"
+default = 0
+
+[actions.try_on.args.second_dye]
+arg = 3
+doc = "The dye of the item's second channel; none when left out."
+sheet = "Stain"
+default = 0
+
+[actions.try_on.args.look]
+arg = 4
+value = 0
+
+[actions.try_on.args.crest]
+arg = 5
+value = false

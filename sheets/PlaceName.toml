@@ -1,0 +1,10 @@
+sheet = "PlaceName"
+doc = "The names of places: regions, zones, and areas within them."
+
+[columns.name]
+type = "text"
+doc = "The place's name."
+
+[[layouts]]
+fingerprint = "08afb9a170a5092c"
+columns = { name = 0 }

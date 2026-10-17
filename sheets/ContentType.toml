@@ -1,0 +1,14 @@
+sheet = "ContentType"
+doc = "The kinds of duties: dungeons, trials, raids, and others."
+
+[columns.name]
+type = "text"
+doc = "The kind's name."
+
+[columns.icon]
+type = "uint32"
+doc = "The kind's icon: an icon number."
+
+[[layouts]]
+fingerprint = "2763ea3219e72980"
+columns = { name = 0, icon = 1 }

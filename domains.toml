@@ -5,76 +5,83 @@
 [domains.character]
 doc = "The player's character: name, class, level, HP, and MP."
 class = "you"
-read = { en = "Sees your character: name, class, level, HP and MP", ru = "Видит вашего персонажа: имя, класс, уровень, HP и MP" }
+read = { en = "See your character: name, class, level, HP and MP", ru = "Видеть вашего персонажа: имя, класс, уровень, HP и MP" }
 
 [domains.location]
 doc = "Where the player is: the zone and the position in it."
 class = "you"
-read = { en = "Sees where you are: the zone and your position", ru = "Видит, где вы: зону и место в ней" }
+read = { en = "See where you are: the zone and your position", ru = "Видеть, где вы: зону и место в ней" }
 
 [domains.statuses]
 doc = "The statuses on the player's character."
 class = "you"
-read = { en = "Sees the statuses on your character", ru = "Видит эффекты на вашем персонаже" }
+read = { en = "See the statuses on your character", ru = "Видеть эффекты на вашем персонаже" }
 
 [domains.inventory]
 doc = "The items the player carries: the bags, the equipped gear, the currency, the crystals, and the key items."
 class = "you"
-read = { en = "Sees the items you carry", ru = "Видит предметы, которые вы носите" }
+read = { en = "See the items you carry", ru = "Видеть предметы, которые вы носите" }
 
 [domains.armoury]
 doc = "The armoury chest."
 class = "you"
-read = { en = "Sees your armoury chest", ru = "Видит ваш оружейный сундук" }
+read = { en = "See your armoury chest", ru = "Видеть ваш оружейный сундук" }
 
 [domains.saddlebag]
 doc = "The chocobo saddlebags."
 class = "you"
-read = { en = "Sees your chocobo saddlebags", ru = "Видит седельные сумки вашего чокобо" }
+read = { en = "See your chocobo saddlebags", ru = "Видеть седельные сумки вашего чокобо" }
 
 [domains.retainers]
 doc = "What the player's retainers hold, while the player has a retainer's inventory open."
 class = "you"
-read = { en = "Sees what your retainers hold", ru = "Видит, что хранят ваши ретейнеры" }
+read = { en = "See what your retainers hold", ru = "Видеть, что хранят ваши ретейнеры" }
 
 [domains.actions]
 doc = "The actions the player uses: abilities, spells, items, mounts, and the others the action bars hold."
 class = "you"
-read = { en = "Sees the actions you use", ru = "Видит действия, которые вы используете" }
-act = { en = "Uses actions for you: abilities, spells, items, mounts", ru = "Использует действия за вас: способности, заклинания, предметы, ездовых животных" }
+read = { en = "See the actions you use", ru = "Видеть действия, которые вы используете" }
+act = { en = "Use actions for you: abilities, spells, items, mounts", ru = "Использовать действия за вас: способности, заклинания, предметы, ездовых животных" }
 
 [domains.activity]
 doc = "What the player's character is doing: in combat, casting, mounted, busy, between areas."
 class = "you"
-read = { en = "Sees what you are doing: in combat, casting, mounted, busy", ru = "Видит, чем вы заняты: бой, чтение заклинания, верховая езда, занятость" }
+read = { en = "See what you are doing: in combat, casting, mounted, busy", ru = "Видеть, чем вы заняты: бой, чтение заклинания, верховая езда, занятость" }
 
 [domains.teleport]
 doc = "Teleporting to aetherytes."
 class = "you"
-read = { en = "Sees where you teleport", ru = "Видит, куда вы телепортируетесь" }
-act = { en = "Teleports you to aetherytes, paying the fee", ru = "Телепортирует вас к эфиритам, оплачивая перелёт" }
+read = { en = "See where you teleport", ru = "Видеть, куда вы телепортируетесь" }
+act = { en = "Teleport you to aetherytes, paying the fee", ru = "Телепортировать вас к эфиритам, оплачивая перелёт" }
 
 [domains.camera]
 doc = "The player's camera: how far it is, its zoom limits, and where it faces."
 class = "display"
-read = { en = "Sees your camera: zoom and direction", ru = "Видит вашу камеру: приближение и направление" }
-change = { en = "Changes your camera's zoom limits", ru = "Меняет пределы приближения вашей камеры" }
+read = { en = "See your camera: zoom and direction", ru = "Видеть вашу камеру: приближение и направление" }
+change = { en = "Change your camera's zoom limits", ru = "Менять пределы приближения вашей камеры" }
 
 [domains.chat]
 doc = "The chat log: the messages the player and other players send, and the game's own."
 class = "others"
-read = { en = "Sees your chat log, including other players' messages", ru = "Видит ваш чат, включая сообщения других игроков" }
-change = { en = "Hides messages in your chat log", ru = "Скрывает сообщения в вашем чате" }
+read = { en = "See your chat log, including other players' messages", ru = "Видеть ваш чат, включая сообщения других игроков" }
+change = { en = "Hide messages in your chat log", ru = "Скрывать сообщения в вашем чате" }
 
 [domains.windows]
 doc = "The game's windows: which are open and what they show and ask, which may name other players."
 class = "others"
-read = { en = "Sees the game's windows and what they ask, including other players' names", ru = "Видит окна игры и их вопросы, включая имена других игроков" }
-act = { en = "Answers the game's dialogs for you", ru = "Отвечает на диалоги игры за вас" }
-change = { en = "Hides parts of the game's windows and puts its own text in them", ru = "Скрывает части окон игры и вписывает в них свой текст" }
+read = { en = "See the game's windows and what they ask, including other players' names", ru = "Видеть окна игры и их вопросы, включая имена других игроков" }
+act = { en = "Answer the game's dialogs for you", ru = "Отвечать на диалоги игры за вас" }
+change = { en = "Hide parts of the game's windows and put its own text in them", ru = "Скрывать части окон игры и вписывать в них свой текст" }
 
 [domains.text]
 doc = "The game's own text: what its sheets hold, such as names, descriptions, and dialogue, and how it converts letter case."
 class = "display"
-read = { en = "Sees the game's text: names, descriptions, dialogue", ru = "Видит тексты игры: названия, описания, диалоги" }
-change = { en = "Changes the game's text: names, descriptions, dialogue, letter case", ru = "Меняет тексты игры: названия, описания, диалоги, регистр букв" }
+read = { en = "See the game's text: names, descriptions, dialogue", ru = "Видеть тексты игры: названия, описания, диалоги" }
+change = { en = "Change the game's text: names, descriptions, dialogue, letter case", ru = "Менять тексты игры: названия, описания, диалоги, регистр букв" }
+
+[domains.fitting]
+doc = "The Try On window, which shows items on the player's character and changes nothing else."
+class = "you"
+read = { en = "See what you try on", ru = "Видеть, что вы примеряете" }
+act = { en = "Open items in the Try On window", ru = "Открывать предметы в окне примерки" }
+act_local = true
