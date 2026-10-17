@@ -1,0 +1,14 @@
+sheet = "ContentFinderCondition"
+doc = "Every duty the duty finder can match a party for."
+
+[columns.name]
+type = "text"
+doc = "The duty's name."
+
+[columns.content_type]
+type = "uint8"
+doc = "What kind of duty it is: a row of ContentType."
+
+[[layouts]]
+fingerprint = "0a87f7871504fbcd"
+columns = { name = 43, content_type = 45 }

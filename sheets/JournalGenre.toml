@@ -1,0 +1,14 @@
+sheet = "JournalGenre"
+doc = "The genres the journal sorts quests into, such as a city's sidequests or a class's quests."
+
+[columns.icon]
+type = "int32"
+doc = "The genre's icon: an icon number."
+
+[columns.name]
+type = "text"
+doc = "The genre's name."
+
+[[layouts]]
+fingerprint = "c8097f3edf710dbd"
+columns = { icon = 0, name = 3 }

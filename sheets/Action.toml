@@ -1,0 +1,14 @@
+sheet = "Action"
+doc = "Every action a character can use: weapon skills, spells, abilities, and others."
+
+[columns.name]
+type = "text"
+doc = "The action's name."
+
+[columns.icon]
+type = "uint16"
+doc = "The action's icon: an icon number."
+
+[[layouts]]
+fingerprint = "7070dd0d0be0a5d6"
+columns = { name = 0, icon = 2 }

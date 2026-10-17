@@ -1,0 +1,14 @@
+sheet = "Quest"
+doc = "Every quest."
+
+[columns.name]
+type = "text"
+doc = "The quest's name."
+
+[columns.genre]
+type = "uint32"
+doc = "The quest's genre in the journal: a row of JournalGenre."
+
+[[layouts]]
+fingerprint = "9cd13334b19db70f"
+columns = { name = 0, genre = 1642 }

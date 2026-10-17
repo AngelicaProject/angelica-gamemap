@@ -1,5 +1,5 @@
 sheet = "Item"
-doc = "Every item: its names and description."
+doc = "Every item: its names, description, icon, and rarity."
 
 [columns.singular]
 type = "text"
@@ -17,6 +17,18 @@ doc = "The description shown in the item's tooltip."
 type = "text"
 doc = "The name as menus and tooltips show it."
 
+[columns.icon]
+type = "uint16"
+doc = "The item's icon: an icon number."
+
+[columns.rarity]
+type = "uint8"
+doc = "How rare the item is, which colors its name: 1 common (white), 2 uncommon (green), 3 rare (blue), 4 relic (purple), 7 aetherial (pink); 0 for a row without an item."
+
+[columns.equip_slot]
+type = "uint8"
+doc = "Where the item is worn or held: a row of EquipSlotCategory; 0 for an item that is not worn."
+
 [[layouts]]
 fingerprint = "eaea5cde48d5801d"
-columns = { singular = 0, plural = 2, description = 8, name = 9 }
+columns = { singular = 0, plural = 2, description = 8, name = 9, icon = 10, rarity = 12, equip_slot = 17 }
