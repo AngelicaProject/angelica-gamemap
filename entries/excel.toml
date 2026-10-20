@@ -26,8 +26,11 @@ doc = "The vtable slot of the function that allocates a row buffer: (environment
 [field."excel.exd_environment.free"]
 of = "excel.exd_environment_vtable"
 type = "ptr"
-offset = 0x10
-doc = "The vtable slot of the function that frees a row buffer: (environment, buffer). The game's row clear calls it outside its function's first unwind range, so the offset is a constant."
+locator = { in = "excel.row.clear", signature = "FF 50 ?? 48 89 2E", operand = "disp" }
+# The row clear loads the environment, calls through its vtable with the
+# row's buffer, and leaves the empty-row tag.
+checks = [{ contains = "48 8B 0D ?? ?? ?? ?? 48 8B 01 FF 50 ?? 48 89 2E 48 8B 6C 24 ?? C7 06 01 00 00 00", in = "excel.row.clear" }]
+doc = "The vtable slot of the function that frees a row buffer: (environment, buffer)."
 
 [function."excel.row.construct"]
 locator = { signature = "40 53 48 83 EC ?? 48 C7 01 01 00 00 00 48 8B D9 4C 89 49 ?? 66 41 83 B9 ?? ?? ?? ?? 02" }
@@ -36,6 +39,12 @@ thread = "any"
 # Sheets of version 2 and earlier take the old parser; every later version the version 3 parser.
 checks = [{ contains = "66 41 83 B9 ?? ?? ?? ?? 02 77" }]
 doc = "Constructs a row from parsed page data and its owning sheet."
+
+[function."excel.row.clear"]
+locator = { signature = "40 56 48 83 EC 20 0F B6 01 48 8B F1 F6 D0 A8 01 0F 84" }
+abi = { args = ["ptr"], ret = "void" }
+thread = "any"
+doc = "Frees a row's buffer and the texts its columns own, and leaves the empty-row tag; the version 3 parser calls it before it builds a new buffer."
 
 [function."excel.row.parse_v3"]
 locator = { signature = "40 53 56 57 41 54 41 55 41 56 41 57 48 83 EC ?? 41 8B D8 45 8B E1 48 03 DB 4C 8B F1 4C 8D 3C 13" }
@@ -163,6 +172,6 @@ doc = "The number of subrow keys carried by this descriptor."
 [field."excel.row_descriptor.subrow_ids"]
 of = "excel.row_descriptor"
 type = "u16"
-offset = 0x8
+locator = { in = "excel.ring_buffer_page_row_resolver.store_row", signature = "4C 8D 47 ?? 44 8B C8 E8", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "The first subrow key; the descriptor contains at most four."
