@@ -18,7 +18,7 @@ doc = "Converts a string to lower case."
 [field."text.utf8_string.string_ptr"]
 of = "text.utf8_string"
 type = "ptr"
-offset = 0x0
+locator = { in = "text.utf8_string.to_lower", signature = "49 8B 11 49 03 D0 0F B6 02", operand = "disp" }
 doc = "The string's bytes."
 
 [field."text.utf8_string.used_size"]
@@ -30,13 +30,13 @@ doc = "The number of bytes in use, including the terminating NUL."
 [field."text.case_exclusion.word"]
 of = "text.case_exclusion"
 type = "ptr"
-offset = 0x0
+locator = { in = "text.utf8_string.to_upper", signature = "48 8B 09 48 03 D6 4C 63 C0 E8", operand = "disp" }
 doc = "The bytes of a word that Utf8String::ToUpper leaves unchanged when it capitalizes every word."
 
 [field."text.case_exclusion.length"]
 of = "text.case_exclusion"
 type = "i32"
-offset = 0x8
+locator = { in = "text.utf8_string.to_upper", signature = "41 8B 46 ?? 33 DB 85 C0 74", operand = "disp" }
 doc = "The word's length in bytes; zero ends the list."
 
 [function."text.utf8_string.from_sequence"]

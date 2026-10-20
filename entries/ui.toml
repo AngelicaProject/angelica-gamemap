@@ -141,15 +141,15 @@ origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18f
 [field."ui.atk_value.kind"]
 of = "ui.atk_value"
 type = "u8"
-offset = 0x0
-doc = "What the value holds; the value itself is 8 bytes on. From FFXIVClientStructs; to be read in the running game."
+locator = { in = "ui.agent_hud.open_system_menu", signature = "F6 01 0F 74 ?? E8", operand = "disp" }
+doc = "What the value holds; the value itself is 8 bytes on."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 
 [field."ui.atk_value.integer"]
 of = "ui.atk_value"
 type = "i32"
-offset = 0x8
-doc = "The value as a signed integer, for the kind int. From FFXIVClientStructs."
+locator = { in = "ui.agent_hud.open_system_menu", signature = "44 89 6B ?? 8D 46 F9", operand = "disp" }
+doc = "The value as a signed integer, for the kind int."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 
 [field."ui.atk_value.unsigned"]
@@ -162,8 +162,8 @@ origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18f
 [field."ui.atk_value.text"]
 of = "ui.atk_value"
 type = "ptr"
-offset = 0x8
-doc = "The value as a pointer to NUL-terminated game text, for the kinds string, const_string, and managed_string. From FFXIVClientStructs."
+locator = { in = "ui.agent_hud.open_system_menu", signature = "49 89 5E ?? 48 8B 4D 10", operand = "disp" }
+doc = "The value as a pointer to NUL-terminated game text, for the kinds string, const_string, and managed_string."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 
 [function."ui.unit_base.fire_callback_int"]
