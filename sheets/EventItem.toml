@@ -1,0 +1,14 @@
+sheet = "EventItem"
+doc = "Key items tied to quests and other events."
+
+[columns.singular]
+type = "text"
+doc = "The singular form used in sentences."
+
+[columns.name]
+type = "text"
+doc = "The display name used in the inventory and chat links."
+
+[[layouts]]
+fingerprint = "f89543a3192415c6"
+columns = { singular = 0, name = 9 }

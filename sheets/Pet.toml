@@ -1,0 +1,10 @@
+sheet = "Pet"
+doc = "Pets available to the player."
+
+[columns.name]
+type = "text"
+doc = "The name used in commands."
+
+[[layouts]]
+fingerprint = "f99b0545b655ba6e"
+columns = { name = 0 }

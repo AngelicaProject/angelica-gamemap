@@ -1,5 +1,11 @@
 # Third-party notices
 
+## Harmonia
+
+The locators for `chat.pronoun_module.encode_links` and `shell.command_module.match_sheet_name` are adapted from Harmonia, commit `8dcbe513024bf9a950bcb66175d96023aa1ca978`.
+
+Based on Harmonia (https://github.com/AngelicaProject/Harmonia), Copyright (C) 2026 pokeda. Licensed under AGPL-3.0-or-later with the attribution term in Harmonia's NOTICE.
+
 ## FFXIVClientStructs
 
 Imported Excel field descriptions originate from FFXIVClientStructs, commit fd638ed42fbafdf3f0fac721a18ff02724dc8069. Locators were independently verified against the current game executable.

@@ -1,12 +1,39 @@
-[global."game.game_main"]
-locator = { signature = "48 8D 0D ?? ?? ?? ?? 0F 28 F2 48 89 44 24 ??", at = 3, follow = "rel32" }
+[global."game.quest_manager.instance"]
 type = "struct"
-doc = "The game's main state: zones and transitions between them."
+locator = { signature = "48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 84 24 ?? ?? ?? ?? 00 0F B6 E8 45 84 F6", at = 3, follow = "rel32" }
+checks = [{ in = "game.quest_manager.get_sequence", contains = "0F B7 D9 E8 ?? ?? ?? ?? 45 33 C0 41 8B D0" }]
+doc = "The quest state manager in the game image."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 
-[field."game.game_main.current_territory_type"]
-of = "game.game_main"
-type = "u32"
-offset = 0x4108
-doc = "The zone the player is in: a row of the TerritoryType sheet; zero during loading screens."
+[function."game.quest_manager.get_sequence"]
+locator = { signature = "E8 ?? ?? ?? ?? 3A 43 06 73 ?? 32 C0", at = 1, follow = "rel32" }
+abi = { args = ["u16"], ret = "u8" }
+thread = "main"
+checks = [{ contains = "66 39 58 08 74 ?? 41 FF C0 48 FF C2 48 83 C0 18 48 83 FA 1E" }]
+doc = "Looks up a quest's sequence in the 30 accepted quest records of 24 bytes each."
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[function."game.quest_manager.is_accepted"]
+locator = { signature = "45 33 C0 48 8D 41 ?? 66 39 10 74 ?? 49 FF C0 48 83 C0 18" }
+abi = { args = ["ptr", "u16"], ret = "u8" }
+thread = "main"
+doc = "Checks whether the quest manager has an accepted quest with this id."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
+
+[field."game.quest_manager.first_accepted_id"]
+of = "game.quest_manager"
+type = "u16"
+locator = { in = "game.quest_manager.is_accepted", signature = "48 8D 41 ?? 66 39 10", operand = "disp" }
+doc = "The id of the first of the accepted quest records."
+
+[field."game.quest_work.sequence"]
+of = "game.quest_work"
+type = "u8"
+locator = { in = "game.quest_manager.get_sequence", signature = "0F B6 40 ?? 48 83 C4 20", operand = "disp" }
+doc = "The active sequence within a quest work record."
+
+[field."game.quest_work.id"]
+of = "game.quest_work"
+type = "u16"
+locator = { in = "game.quest_manager.get_sequence", signature = "66 39 58 ?? 74 ?? 41 FF C0", operand = "disp" }
+doc = "The id within a quest work record, or zero for a vacant record."

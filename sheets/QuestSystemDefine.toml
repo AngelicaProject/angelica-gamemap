@@ -1,0 +1,14 @@
+sheet = "QuestSystemDefine"
+doc = "Shared constants available to quest scripts."
+
+[columns.key]
+type = "text"
+doc = "The constant's script name."
+
+[columns.value]
+type = "int32"
+doc = "The constant's numeric value."
+
+[[layouts]]
+fingerprint = "d677403a34f3b2fd"
+columns = { key = 0, value = 1 }
