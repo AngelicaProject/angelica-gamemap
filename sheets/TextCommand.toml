@@ -1,0 +1,22 @@
+sheet = "TextCommand"
+doc = "The game's slash commands."
+
+[columns.command]
+type = "text"
+doc = "The main slash command."
+
+[columns.short_command]
+type = "text"
+doc = "The short slash command."
+
+[columns.alias]
+type = "text"
+doc = "An alternate spelling."
+
+[columns.short_alias]
+type = "text"
+doc = "An alternate short spelling."
+
+[[layouts]]
+fingerprint = "1f7aa24ac184e976"
+columns = { command = 5, short_command = 6, alias = 8, short_alias = 9 }

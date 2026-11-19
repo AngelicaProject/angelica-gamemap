@@ -1,0 +1,10 @@
+sheet = "PetMirage"
+doc = "Pet glamour appearances."
+
+[columns.name]
+type = "text"
+doc = "The name used in commands."
+
+[[layouts]]
+fingerprint = "c0692af0bcbaafad"
+columns = { name = 2 }

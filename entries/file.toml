@@ -8,17 +8,12 @@ checks = [
 ]
 doc = "Runs one file job of a file thread by the descriptor's mode: modes below 9 read a file on disk named by the descriptor's path, 11 reads the resource's file from an archive."
 
-[function."file.file_thread.read_from_disk"]
-locator = { signature = "48 89 5C 24 08 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 63 42 28" }
+[function."file.file_thread.read_disk"]
+locator = { signature = "48 89 5C 24 08 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 63 42 ?? 45 33 E4" }
 abi = { args = ["ptr", "ptr", "i32", "u8"], ret = "u8" }
 thread = "any"
-doc = "Runs a file job that reads a file on disk, the job of every mode below 9: (file thread, descriptor, priority, sync). It opens the descriptor's file interface at its path and reads from the start offset."
-
-[function."file.file_thread.read_from_archive"]
-locator = { signature = "44 88 4C 24 20 44 89 44 24 18 53 56 57 41 55 41 57 48 83 EC ?? 48 63 42 28 48 8B FA" }
-abi = { args = ["ptr", "ptr", "i32", "u8"], ret = "u8" }
-thread = "any"
-doc = "Runs a file job of mode 11, which reads the resource's file from the archive of its category: (file thread, descriptor, priority, sync)."
+checks = [{ signature = "48 8B 4C D1 28 E8 ?? ?? ?? ?? B0 01 48 83 C4 28 41 5E 5E C3 48 83 C4 28 41 5E 5E E9 ?? ?? ?? ??", at = 28, follow = "rel32" }]
+doc = "The disk branch of the file job dispatcher. Reads the descriptor's UTF-16 path and range and opens the file into the job's file object."
 
 [field."file.descriptor.mode"]
 of = "file.descriptor"
@@ -30,44 +25,42 @@ doc = "What the job does: 0 reads a file on disk into a resource, 11 reads a fil
 [field."file.descriptor.length"]
 of = "file.descriptor"
 type = "u64"
-locator = { in = "file.file_thread.read_from_disk", signature = "49 8B 77 ?? 4D 8B 6F", operand = "disp" }
+locator = { in = "file.file_thread.read_disk", signature = "49 8B 77 ?? 4D 8B 6F ?? 4C 89 74 24 30", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "How many bytes a disk job reads from the start offset; zero reads the rest of the file."
 
 [field."file.descriptor.start_offset"]
 of = "file.descriptor"
 type = "u64"
-locator = { in = "file.file_thread.read_from_disk", signature = "4D 8B 6F ?? 4C 89 74 24", operand = "disp" }
+locator = { in = "file.file_thread.read_disk", signature = "4D 8B 6F ?? 4C 89 74 24 30 44 88 64 24 20", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "Where in the file a disk job starts reading."
 
 [field."file.descriptor.file_interface"]
 of = "file.descriptor"
 type = "ptr"
-locator = { in = "file.file_thread.read_from_disk", signature = "49 8B 6F ?? 4C 8D 05", operand = "disp" }
+locator = { in = "file.file_thread.read_disk", signature = "49 8B 6F ?? 4C 8D 05 ?? ?? ?? ?? 4D 8B 77", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "The file a disk job opens and reads."
 
 [field."file.descriptor.resource_handle"]
 of = "file.descriptor"
 type = "ptr"
-locator = { in = "file.file_thread.read_from_archive", signature = "48 8B 72 ?? 4C 8B E9", operand = "disp" }
+locator = { in = "file.file_thread.read_disk", signature = "4D 8B 47 ?? 48 8D 94 24 80 00 00 00 48 8B 0D", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "The resource a job loads."
 
 [field."file.descriptor.path"]
 of = "file.descriptor"
 type = "u16"
-locator = { in = "file.file_thread.read_from_disk", signature = "4D 8D 47 ?? BA 04 01 00 00", operand = "disp" }
+locator = { in = "file.file_thread.read_disk", signature = "4D 8D 47 ?? BA 04 01 00 00 48 8D 8C 24", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "The first of 260 UTF-16 units of the NUL-terminated path a disk job reads."
 
 [field."file.resource_handle.file_name"]
 of = "file.resource_handle"
 type = "ptr"
-locator = { in = "file.file_thread.read_from_archive", signature = "48 8D 56 ?? 72 03 48 8B 12", operand = "disp" }
-# The game reads the text inline below a capacity of 16 and through the pointer otherwise.
-checks = [{ contains = "48 83 7E ?? 10 48 8D 56 ?? 72 03 48 8B 12", in = "file.file_thread.read_from_archive" }]
+locator = { in = "file.texture_handle.load", signature = "48 8D 4B ?? 72 03 48 8B 09 E8", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "The resource's game path, a std::string: 16 bytes of inline text or a pointer, then its length and capacity."
 
@@ -104,6 +97,6 @@ doc = "Bit 0: the texture loads at the detail level of the graphics settings. Bi
 [field."file.resource_handle.category"]
 of = "file.resource_handle"
 type = "u16"
-locator = { in = "file.file_thread.read_from_archive", signature = "8B 6E ?? 48 8B 05 ?? ?? ?? ?? 44 0F B7 F5", operand = "disp" }
+locator = { in = "file.texture_handle.load", signature = "0F B7 43 ?? FF C8 83 F8 01 77 ?? 80 8B", operand = "disp" }
 origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }
 doc = "The resource's category, the archive group its file belongs to."

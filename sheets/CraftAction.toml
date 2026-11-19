@@ -1,0 +1,10 @@
+sheet = "CraftAction"
+doc = "Crafting actions."
+
+[columns.name]
+type = "text"
+doc = "The name used in commands."
+
+[[layouts]]
+fingerprint = "90d01532f39e63ba"
+columns = { name = 0 }

@@ -1,0 +1,7 @@
+[function."chat.pronoun_module.encode_links"]
+locator = { signature = "41 8B C1 4D 85 C0 74 0D 4C 8B 4C 24 28 44 8B C0 E9 ?? ?? ?? ?? E9", at = 17, follow = "rel32" }
+abi = { args = ["ptr", "ptr", "u32", "u8"], ret = "ptr" }
+thread = "any"
+checks = [{ contains = "4D 8B E1 4C 89 4C 24 ?? 48 8B FA 41 8B F0 4C 8B F9" }]
+doc = "Encodes outgoing chat placeholders in the pronoun module: (module, input Utf8String, byte limit, flags) returns a Utf8String with wire links."
+origin = { source = "Harmonia", commit = "8dcbe513024bf9a950bcb66175d96023aa1ca978" }

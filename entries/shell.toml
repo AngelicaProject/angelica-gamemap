@@ -1,5 +1,36 @@
+[function."shell.command_module.match_sheet_name"]
+locator = { signature = "48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 41 54 41 57 48 83 EC ?? 8B 6C 24 ?? 49 8B F9 4D 8B F8 4C 8B E2 48 8B D9" }
+abi = { args = ["ptr", "ptr", "ptr", "ptr", "i32", "i32"], ret = "u8" }
+thread = "any"
+doc = "Matches a command argument in a sheet within the caller's row bounds and writes the resulting row id on success."
+origin = { source = "Harmonia", commit = "8dcbe513024bf9a950bcb66175d96023aa1ca978" }
+
+[field."shell.name_match_entry.sheet"]
+of = "shell.name_match_entry"
+type = "ptr"
+locator = { in = "shell.command_module.match_sheet_name", signature = "48 8B 4F ?? E8 ?? ?? ?? ?? 48 83 3D ?? ?? ?? ?? 00 48 8B 5C 24 ?? 0F 94 C0", operand = "disp" }
+doc = "The loaded Excel sheet used by the matcher."
+
+[field."shell.name_match_entry.column"]
+of = "shell.name_match_entry"
+type = "i16"
+locator = { in = "shell.command_module.match_sheet_name", signature = "0F BF 47 ?? 89 05 ?? ?? ?? ?? 89 2D", operand = "disp" }
+doc = "The index of the column the command searches."
+
 [function."shell.command_module.execute_command_inner"]
 locator = { signature = "40 53 56 57 48 83 EC ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 44 24 ?? 48 8B 02 49 8B F0 48 8B FA 48 8B D9 80 38 00" }
 abi = { args = ["ptr", "ptr", "ptr"], ret = "void" }
 thread = "main"
 doc = "Runs a line the player sent from the chat box or a macro: (command module, the line as a Utf8String, UI module). It looks the command up in the game's command list and runs it or reports an unknown command."
+
+[field."shell.command_module.current_channel"]
+of = "shell.command_module"
+type = "struct"
+locator = { in = "shell.command_module.dispatch_line", signature = "48 8D 8E ?? ?? ?? ?? E8 ?? ?? ?? ?? 4D 8B C7 48 8D 94 24", operand = "disp" }
+doc = "The Utf8String naming the channel command used for a line without a slash command."
+
+[function."shell.command_module.dispatch_line"]
+locator = { signature = "4C 8D 4C 24 30 89 44 24 20 4C 8B C6 48 8B D7 48 8B CB E8 ?? ?? ?? ?? 48 8B 5C 24 48", at = 19, follow = "rel32" }
+abi = { args = ["ptr", "ptr", "ptr", "ptr", "i32"], ret = "void" }
+thread = "main"
+doc = "Dispatches a shell line, using the current channel command for ordinary chat."

@@ -2,10 +2,10 @@
 locator = { signature = "40 53 57 41 54 41 55 41 57 48 83 EC 20 45 0F B6 E9 44 0F B6 E2 48 8B F9 41 B2 01" }
 abi = { args = ["ptr", "u8", "u8", "u8", "ptr"], ret = "ptr" }
 thread = "any"
-# The exclusion records are 16 bytes, the length at +8, and a zero length ends the list.
+# The exclusion records are 16 bytes, and a zero length ends the list.
 checks = [
-    { contains = "41 8B 46 08 33 DB 85 C0 74 ?? 49 8B CE" },
-    { contains = "48 FF C3 48 8B CB 48 C1 E1 04 49 03 CE 8B 41 08 85 C0 75" },
+    { contains = "41 8B 46 ?? 33 DB 85 C0 74 ?? 49 8B CE" },
+    { contains = "48 FF C3 48 8B CB 48 C1 E1 04 49 03 CE 8B 41 ?? 85 C0 75" },
 ]
 doc = "Converts a string to upper case: its first letter, the first letter of every word, or all of it, skipping listed words."
 
@@ -18,7 +18,7 @@ doc = "Converts a string to lower case."
 [field."text.utf8_string.string_ptr"]
 of = "text.utf8_string"
 type = "ptr"
-locator = { in = "text.utf8_string.to_lower", signature = "49 8B 11 49 03 D0 0F B6 02", operand = "disp" }
+locator = { in = "text.utf8_string.set_string", signature = "48 8B 0E 4C 8B C3 48 8B D7 E8", operand = "disp" }
 doc = "The string's bytes."
 
 [field."text.utf8_string.used_size"]
@@ -36,7 +36,8 @@ doc = "The bytes of a word that Utf8String::ToUpper leaves unchanged when it cap
 [field."text.case_exclusion.length"]
 of = "text.case_exclusion"
 type = "i32"
-locator = { in = "text.utf8_string.to_upper", signature = "41 8B 46 ?? 33 DB 85 C0 74", operand = "disp" }
+locator = { in = "text.utf8_string.to_upper", signature = "41 8B 46 ?? 33 DB 85 C0 74 ?? 49 8B CE", operand = "disp" }
+checks = [{ in = "text.utf8_string.to_upper", signature = "8B 41 ?? 85 C0 75 ?? 48 8B 17 8D 45", operand = "disp" }]
 doc = "The word's length in bytes; zero ends the list."
 
 [function."text.utf8_string.from_sequence"]
@@ -57,3 +58,11 @@ thread = "any"
 # The destructor frees only when the inline flag at +0x21 is clear.
 checks = [{ contains = "80 79 21 00 75 ?? 48 8B 51 08 41 B8 33 00 00 00 48 8B 09" }]
 doc = "Frees what a Utf8String allocated."
+
+[function."text.utf8_string.set_string"]
+locator = { signature = "E8 ?? ?? ?? ?? 4D 39 2E", at = 1, follow = "rel32" }
+abi = { args = ["ptr", "ptr"], ret = "void" }
+thread = "any"
+checks = [{ contains = "48 FF C3 80 3C 1A 00 75 ?? 48 8D 53 01 41 B0 01" }]
+doc = "Replaces an initialized Utf8String with a copy of a NUL-terminated sequence, growing the game-owned buffer if needed."
+origin = { source = "FFXIVClientStructs", commit = "fd638ed42fbafdf3f0fac721a18ff02724dc8069" }

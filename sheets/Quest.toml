@@ -1,14 +1,30 @@
 sheet = "Quest"
-doc = "Every quest."
+doc = "Quests and their configuration."
 
 [columns.name]
 type = "text"
-doc = "The quest's name."
+doc = "The title used in the journal and chat links."
 
-[columns.genre]
+[columns.identifier]
+type = "text"
+doc = "Script identifier."
+
+[columns.first_script_instruction]
+type = "text"
+doc = "First key of the quest's script parameters."
+
+[columns.last_script_instruction]
+type = "text"
+doc = "Last key of the quest's script parameters."
+
+[columns.first_script_arg]
 type = "uint32"
-doc = "The quest's genre in the journal: a row of JournalGenre."
+doc = "First value of the quest's script parameters."
+
+[columns.last_script_arg]
+type = "uint32"
+doc = "Last value of the quest's script parameters."
 
 [[layouts]]
 fingerprint = "9cd13334b19db70f"
-columns = { name = 0, genre = 1642 }
+columns = { name = 0, identifier = 1, first_script_instruction = 50, last_script_instruction = 99, first_script_arg = 100, last_script_arg = 149 }
